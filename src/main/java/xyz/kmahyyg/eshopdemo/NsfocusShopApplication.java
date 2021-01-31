@@ -1,4 +1,4 @@
-package xyz.kmahyyg.eshopdemo.main;
+package xyz.kmahyyg.eshopdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
