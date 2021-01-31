@@ -24,8 +24,8 @@ tags:
 securityDefinitions:
   sessionID:
     type: apiKey
-    name: cookie_JSESSIONID
-    description: User must have a valid logged-in session.
+    name: Authorization
+    description: JWT Token with bearer authentication.
     in: header
 consumes:
   - application/json
@@ -198,6 +198,7 @@ definitions:
           - "service_platform"
 paths:
   /shop:
+
   /user:
   /order:
   /system:
