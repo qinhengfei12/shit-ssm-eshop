@@ -198,7 +198,7 @@ definitions:
           - "service_platform"
 paths:
   /shop:
-
+    
   /user:
   /order:
   /system:
