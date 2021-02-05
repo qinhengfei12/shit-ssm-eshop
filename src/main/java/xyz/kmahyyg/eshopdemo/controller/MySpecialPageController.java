@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("permitAll()")
 @Controller
 public class MySpecialPageController {
-    @GetMapping(value="/")
-    public String showIndex(){
-        return "static/index";
+    @GetMapping(value="/user/cart")
+    public String showCart(){
+        return "cart";
     }
 }
