@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.kmahyyg.eshopdemo.dao.SysOrdersDao">
+  <resultMap id="BaseResultMap" type="xyz.kmahyyg.eshopdemo.model.SysOrders">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="oid" jdbcType="VARCHAR" property="oid" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="items" jdbcType="VARCHAR" property="items" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="finalPrice" jdbcType="DECIMAL" property="finalprice" />
+    <result column="genTime" jdbcType="TIMESTAMP" property="gentime" />
+    <result column="paidTime" jdbcType="TIMESTAMP" property="paidtime" />
+    <result column="doneTime" jdbcType="TIMESTAMP" property="donetime" />
+    <result column="refundTime" jdbcType="TIMESTAMP" property="refundtime" />
+    <result column="paymentId" jdbcType="BOOLEAN" property="paymentid" />
+    <result column="deliveryId" jdbcType="BOOLEAN" property="deliveryid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, oid, `status`, items, `uid`, finalPrice, genTime, paidTime, doneTime, refundTime, 
+    paymentId, deliveryId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sys_orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sys_orders
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xyz.kmahyyg.eshopdemo.model.SysOrders" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_orders (oid, `status`, items, 
+      `uid`, finalPrice, genTime, 
+      paidTime, doneTime, refundTime, 
+      paymentId, deliveryId)
+    values (#{oid,jdbcType=VARCHAR}, #{status,jdbcType=BOOLEAN}, #{items,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=VARCHAR}, #{finalprice,jdbcType=DECIMAL}, #{gentime,jdbcType=TIMESTAMP}, 
+      #{paidtime,jdbcType=TIMESTAMP}, #{donetime,jdbcType=TIMESTAMP}, #{refundtime,jdbcType=TIMESTAMP}, 
+      #{paymentid,jdbcType=BOOLEAN}, #{deliveryid,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="xyz.kmahyyg.eshopdemo.model.SysOrders" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="items != null">
+        items,
+      </if>
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="finalprice != null">
+        finalPrice,
+      </if>
+      <if test="gentime != null">
+        genTime,
+      </if>
+      <if test="paidtime != null">
+        paidTime,
+      </if>
+      <if test="donetime != null">
+        doneTime,
+      </if>
+      <if test="refundtime != null">
+        refundTime,
+      </if>
+      <if test="paymentid != null">
+        paymentId,
+      </if>
+      <if test="deliveryid != null">
+        deliveryId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="items != null">
+        #{items,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="finalprice != null">
+        #{finalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gentime != null">
+        #{gentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidtime != null">
+        #{paidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="donetime != null">
+        #{donetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundtime != null">
+        #{refundtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentid != null">
+        #{paymentid,jdbcType=BOOLEAN},
+      </if>
+      <if test="deliveryid != null">
+        #{deliveryid,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.kmahyyg.eshopdemo.model.SysOrders">
+    <!--@mbg.generated-->
+    update sys_orders
+    <set>
+      <if test="oid != null">
+        oid = #{oid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="items != null">
+        items = #{items,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="finalprice != null">
+        finalPrice = #{finalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gentime != null">
+        genTime = #{gentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidtime != null">
+        paidTime = #{paidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="donetime != null">
+        doneTime = #{donetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundtime != null">
+        refundTime = #{refundtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentid != null">
+        paymentId = #{paymentid,jdbcType=BOOLEAN},
+      </if>
+      <if test="deliveryid != null">
+        deliveryId = #{deliveryid,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.kmahyyg.eshopdemo.model.SysOrders">
+    <!--@mbg.generated-->
+    update sys_orders
+    set oid = #{oid,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BOOLEAN},
+      items = #{items,jdbcType=VARCHAR},
+      `uid` = #{uid,jdbcType=VARCHAR},
+      finalPrice = #{finalprice,jdbcType=DECIMAL},
+      genTime = #{gentime,jdbcType=TIMESTAMP},
+      paidTime = #{paidtime,jdbcType=TIMESTAMP},
+      doneTime = #{donetime,jdbcType=TIMESTAMP},
+      refundTime = #{refundtime,jdbcType=TIMESTAMP},
+      paymentId = #{paymentid,jdbcType=BOOLEAN},
+      deliveryId = #{deliveryid,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
