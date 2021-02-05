@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 
 
 @SpringBootApplication
-public class NsfocusShopApplication extends WebMvcAutoConfiguration {
+public class NsfocusShopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(NsfocusShopApplication.class, args);
