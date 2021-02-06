@@ -32,6 +32,8 @@ public class SysUsers implements Serializable {
 
     private String addr;
 
+    private Integer status;
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -44,16 +46,9 @@ public class SysUsers implements Serializable {
             return false;
         }
         SysUsers other = (SysUsers) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+        return (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()))
-            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
-            && (this.getPreferPayment() == null ? other.getPreferPayment() == null : this.getPreferPayment().equals(other.getPreferPayment()))
-            && (this.getPreferDelivery() == null ? other.getPreferDelivery() == null : this.getPreferDelivery().equals(other.getPreferDelivery()))
-            && (this.getAddr() == null ? other.getAddr() == null : this.getAddr().equals(other.getAddr()));
+            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
     }
 
     @Override

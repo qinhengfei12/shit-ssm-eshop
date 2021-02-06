@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class UserService<T extends SysUsers> implements UserDetailsService {
 
+    @Autowired
     private SysUsersDao userMapper;
 
     @Override

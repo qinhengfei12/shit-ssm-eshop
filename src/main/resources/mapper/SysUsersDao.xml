@@ -13,21 +13,22 @@
         <result column="preferPayment" jdbcType="INTEGER" property="preferPayment" />
         <result column="preferDelivery" jdbcType="INTEGER" property="preferDelivery" />
         <result column="addr" jdbcType="VARCHAR" property="addr" />
+        <result column="status" jdbcType="INTEGER" property="status" javaType="xyz.kmahyyg.eshopdemo.enums.UserStatusEnum"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         id, username, `uid`, phone, `password`, `role`, avatar, preferPayment, preferDelivery,
-        addr
+        addr, `status`
     </sql>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xyz.kmahyyg.eshopdemo.model.SysUsers" useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into sys_users (username, `uid`, phone,
         `password`, `role`, avatar,
-        preferPayment, preferDelivery, addr
+        preferPayment, preferDelivery, addr, `status`
         )
         values (#{username,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT},
         #{password,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR},
-        #{preferpayment,jdbcType=INTEGER}, #{preferdelivery,jdbcType=INTEGER}, #{addr,jdbcType=VARCHAR}
+        #{preferpayment,jdbcType=INTEGER}, #{preferdelivery,jdbcType=INTEGER}, #{addr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
         )
     </insert>
     <delete id="deleteByUserId" parameterType="string">
@@ -63,6 +64,9 @@
             <if test="addr != null">
                 addr = #{addr,jdbcType=VARCHAR},
             </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
         </set>
         where uid = #{uid,jdbcType=INTEGER}
     </update>
@@ -89,6 +93,9 @@
             </if>
             <if test="addr != null">
                 addr = #{addr,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
             </if>
         </set>
         where username = #{username,jdbcType=INTEGER}

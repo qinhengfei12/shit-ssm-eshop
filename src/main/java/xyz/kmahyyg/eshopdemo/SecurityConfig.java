@@ -17,21 +17,20 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/", "/index", "/show/**", "/api/user/register", "/api/user/login").permitAll()
+                .csrf().ignoringAntMatchers("/api/**")
+                .and()
+                .authorizeRequests().antMatchers("/", "/index", "/show/**", "/api/user/register", "/api/user/login", "/error").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/show/user/login").loginProcessingUrl("/api/user/login")
+                .formLogin().loginPage("/show/user/login").loginProcessingUrl("/api/user/login")
                 .defaultSuccessUrl("/",true)
                 .failureUrl("/error")
                 .and()
-                .rememberMe().rememberMeParameter("rememberme")
-                .rememberMeCookieName("rememberMe")
+                .rememberMe().rememberMeParameter("rememberme").rememberMeCookieName("rememberMe")
                 .and()
                 .logout().logoutUrl("/show/user/logout")
                 .deleteCookies("JSESSIONID")
-
         ;
     }
 
