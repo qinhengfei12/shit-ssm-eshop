@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 6.4.0.1
--- Generation Time: Feb 06, 2021 at 01:58 AM
+-- Generation Time: Feb 06, 2021 at 09:02 AM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.13
 
@@ -28,9 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `sys_items` (
-  `cid` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cid` int(8) UNSIGNED NOT NULL,
   `id` int(10) UNSIGNED NOT NULL,
-  `itemid` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT uuid(),
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` decimal(14,2) NOT NULL,
   `status` tinyint(1) UNSIGNED NOT NULL,
@@ -47,7 +46,6 @@ CREATE TABLE `sys_items` (
 
 CREATE TABLE `sys_item_cates` (
   `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cid` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT uuid(),
   `id` int(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -85,7 +83,7 @@ CREATE TABLE `sys_users` (
   `phone` bigint(11) NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` varchar(24) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `preferPayment` tinyint(1) UNSIGNED NOT NULL,
   `preferDelivery` tinyint(1) UNSIGNED NOT NULL,
   `addr` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -112,17 +110,16 @@ CREATE TABLE `sys_user_cart` (
 --
 ALTER TABLE `sys_items`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `itemid` (`itemid`),
   ADD KEY `shopown` (`shopown`),
-  ADD KEY `itemidx` (`itemid`,`name`);
+  ADD KEY `itemidx` (`name`),
+  ADD KEY `sys_items_ibfk_1` (`cid`);
 
 --
 -- Indexes for table `sys_item_cates`
 --
 ALTER TABLE `sys_item_cates`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD UNIQUE KEY `cid` (`cid`);
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `sys_orders`
@@ -192,7 +189,7 @@ ALTER TABLE `sys_user_cart`
 -- Constraints for table `sys_items`
 --
 ALTER TABLE `sys_items`
-  ADD CONSTRAINT `sys_items_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `sys_item_cates` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sys_items_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `sys_item_cates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sys_items_ibfk_2` FOREIGN KEY (`shopown`) REFERENCES `sys_users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
