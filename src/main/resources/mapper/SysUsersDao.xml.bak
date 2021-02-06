@@ -10,8 +10,8 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="preferPayment" jdbcType="BOOLEAN" property="preferpayment" />
-    <result column="preferDelivery" jdbcType="BOOLEAN" property="preferdelivery" />
+    <result column="preferPayment" jdbcType="BOOLEAN" property="preferPayment" />
+    <result column="preferDelivery" jdbcType="BOOLEAN" property="preferDelivery" />
     <result column="addr" jdbcType="VARCHAR" property="addr" />
   </resultMap>
   <sql id="Base_Column_List">

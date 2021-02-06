@@ -14,6 +14,6 @@ public interface SysItemCatesDao {
     SysItemCates selectByName(String name);
     SysItemCates selectById(Integer id);
     int insert(SysItemCates record);
-    int updateById(Integer id);
+    int updateById(SysItemCates record);
     int deleteById(Integer id);
 }

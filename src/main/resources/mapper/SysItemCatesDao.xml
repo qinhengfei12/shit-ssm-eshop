@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.kmahyyg.eshopdemo.dao.SysItemCatesDao">
+    <resultMap id="BaseResultMap" type="xyz.kmahyyg.eshopdemo.model.SysItemCates">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, `name`
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM sys_item_cates
+    </select>
+    <select id="selectByName" parameterType="String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_item_cates where name = #{name}
+    </select>
+    <select id="selectById" parameterType="Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_item_cates where id = #{id}
+    </select>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xyz.kmahyyg.eshopdemo.model.SysItemCates" useGeneratedKeys="true">
+        insert into sys_item_cates(`name`)
+        values (#{name,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateById" parameterType="xyz.kmahyyg.eshopdemo.model.SysItemCates">
+        update sys_item_cates set `name`= #{name,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteById" parameterType="Integer">
+        delete from sys_item_cates where id = #{id,jdbcType=INTEGER}
+    </delete>
+</mapper>
