@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface SysOrdersDao {
-    int DeleteOrderByOid(String oid);
+    int deleteOrderByOid(String oid);
     SysOrders selectByOid(String oid);
     List<SysOrders> selectByUserId(String uid);
     int updateByOidSelective(SysOrders record);

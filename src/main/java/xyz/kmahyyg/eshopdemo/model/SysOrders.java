@@ -33,7 +33,7 @@ public class SysOrders {
 
     private Integer paymentId;
 
-    private Boolean deliveryId;
+    private Integer deliveryId;
 
     @Override
     public boolean equals(Object that) {
