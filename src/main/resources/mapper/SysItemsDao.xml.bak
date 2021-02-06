@@ -8,13 +8,12 @@
     <result column="itemid" jdbcType="VARCHAR" property="itemid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="descr" jdbcType="VARCHAR" property="descr" />
     <result column="shopown" jdbcType="VARCHAR" property="shopown" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--@mbg.generated-->
     id, cid, itemid, `name`, price, `status`, image, descr, shopown
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

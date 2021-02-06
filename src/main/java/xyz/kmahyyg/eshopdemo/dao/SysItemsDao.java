@@ -1,46 +1,21 @@
 package xyz.kmahyyg.eshopdemo.dao;
 
-import xyz.kmahyyg.eshopdemo.model.SysItems;
 import org.apache.ibatis.annotations.Mapper;
+import xyz.kmahyyg.eshopdemo.model.SysItems;
+
+import java.util.List;
 
 /**
- * @Entity model.SysItems
+ * @Entity xyz.kmahyyg.model.SysItems
  */
 @Mapper
 public interface SysItemsDao {
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int deleteByPrimaryKey(Integer id);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
+    int deleteByCateId(String cid);
+    int deleteById(Integer id);
     int insert(SysItems record);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int insertSelective(SysItems record);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    SysItems selectByPrimaryKey(Integer id);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int updateByPrimaryKeySelective(SysItems record);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int updateByPrimaryKey(SysItems record);
+    List<SysItems> selectByCateId(String cid);
+    List<SysItems> selectByShopOwnerId(String shopOwnerId);
+    List<SysItems> selectByItemName(String itemName);
+    SysItems selectById(Integer id);
+    int updateByIdSelective(SysItems record);
 }

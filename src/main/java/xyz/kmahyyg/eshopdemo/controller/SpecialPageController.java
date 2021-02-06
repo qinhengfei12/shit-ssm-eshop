@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @PreAuthorize("permitAll()")
 @Controller
-public class MySpecialPageController {
+public class SpecialPageController {
     @GetMapping(value="/user/cart")
     public String showCart(){
         return "cart";

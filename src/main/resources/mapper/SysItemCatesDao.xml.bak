@@ -8,7 +8,6 @@
     <result column="cid" jdbcType="VARCHAR" property="cid" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--@mbg.generated-->
     id, `name`, cid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

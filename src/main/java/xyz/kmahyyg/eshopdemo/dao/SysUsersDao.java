@@ -1,46 +1,18 @@
 package xyz.kmahyyg.eshopdemo.dao;
 
-import xyz.kmahyyg.eshopdemo.model.SysUsers;
 import org.apache.ibatis.annotations.Mapper;
+import xyz.kmahyyg.eshopdemo.model.SysUsers;
 
 /**
- * @Entity model.SysUsers
+ * @Entity xyz.kmahyyg.eshopdemo.model.SysUsers
  */
 @Mapper
 public interface SysUsersDao {
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int deleteByPrimaryKey(Integer id);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
+    int deleteByUserId(String uid);
+    int deleteByUserName(String username);
     int insert(SysUsers record);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int insertSelective(SysUsers record);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    SysUsers selectByPrimaryKey(Integer id);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int updateByPrimaryKeySelective(SysUsers record);
-
-    /**
-     *
-     * @mbg.generated 2021-02-06 00:30:33
-     */
-    int updateByPrimaryKey(SysUsers record);
+    int resetPwd(SysUsers record);
+    int updateByUserIdSelective(SysUsers record);
+    SysUsers selectByUserId(String uid);
+    SysUsers selectByUserName(String username);
 }
