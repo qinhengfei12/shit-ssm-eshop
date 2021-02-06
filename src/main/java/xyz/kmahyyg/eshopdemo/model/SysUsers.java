@@ -2,12 +2,15 @@ package xyz.kmahyyg.eshopdemo.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * null
  * @TableName sys_users
  */
 @Data
-public class SysUsers {
+public class SysUsers implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
 

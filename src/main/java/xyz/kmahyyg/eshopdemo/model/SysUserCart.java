@@ -1,12 +1,15 @@
 package xyz.kmahyyg.eshopdemo.model;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * null
  * @TableName sys_user_cart
  */
 @Data
-public class SysUserCart {
+public class SysUserCart implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
 

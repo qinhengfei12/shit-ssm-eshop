@@ -1,4 +1,5 @@
 package xyz.kmahyyg.eshopdemo.model;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -7,7 +8,8 @@ import lombok.Data;
  * @TableName sys_items
  */
 @Data
-public class SysItems {
+public class SysItems implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
 
