@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
+import xyz.kmahyyg.eshopdemo.enums.OrderStatusEnum;
 
 /**
  * null
@@ -17,7 +18,7 @@ public class SysOrders implements Serializable {
 
     private String oid;
 
-    private Integer status;
+    private OrderStatusEnum status;
 
     private String items;
 

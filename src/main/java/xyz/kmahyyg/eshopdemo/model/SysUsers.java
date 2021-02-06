@@ -28,7 +28,8 @@ public class SysUsers implements Serializable {
 
     private String password;
 
-    private String role;
+    private String role;  // ROLE_ADMIN, ROLE_GUEST, ROLE_SHOP_OWNER,
+    // ROLE_USER, ROLE_CUSTOMER_SUPPORT, ROLE_PLATFORM_SUPPORT
 
     private String avatar;
 

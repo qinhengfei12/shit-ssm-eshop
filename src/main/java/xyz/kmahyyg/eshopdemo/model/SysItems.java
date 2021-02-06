@@ -2,6 +2,7 @@ package xyz.kmahyyg.eshopdemo.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import lombok.Data;
+import xyz.kmahyyg.eshopdemo.enums.ItemStatusEnum;
 
 /**
  * null
@@ -19,7 +20,7 @@ public class SysItems implements Serializable {
 
     private BigDecimal price;
 
-    private Integer status;
+    private ItemStatusEnum status;
 
     private String image;
 

@@ -1,4 +1,4 @@
-package xyz.kmahyyg.eshopdemo.utils;
+package xyz.kmahyyg.eshopdemo.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,12 +13,8 @@ public class PublicResponse {
     @JsonProperty("message")
     private String message;
 
-    @JsonProperty("additional_data")
-    private String data;
-
-    public PublicResponse(int status, String message, String data){
+    public PublicResponse(int status, String message){
         this.status = status;
         this.message = message;
-        this.data = data;
     }
 }

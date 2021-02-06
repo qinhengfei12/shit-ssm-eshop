@@ -1,4 +1,4 @@
-package xyz.kmahyyg.eshopdemo.providers;
+package xyz.kmahyyg.eshopdemo.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
