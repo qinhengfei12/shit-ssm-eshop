@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysUserCartDao {
     int deleteByUserId(String uid);
-    int insert(SysUserCartDao record);
-    int updateByUserId(String uid);
+    int insert(SysUserCart record);
+    int updateByUserId(SysUserCart record);
     SysUserCart selectByUserId(String uid);
 }

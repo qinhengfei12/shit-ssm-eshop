@@ -10,8 +10,8 @@
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="role" jdbcType="VARCHAR" property="role" />
         <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-        <result column="preferPayment" jdbcType="BOOLEAN" property="preferPayment" />
-        <result column="preferDelivery" jdbcType="BOOLEAN" property="preferDelivery" />
+        <result column="preferPayment" jdbcType="INTEGER" property="preferPayment" />
+        <result column="preferDelivery" jdbcType="INTEGER" property="preferDelivery" />
         <result column="addr" jdbcType="VARCHAR" property="addr" />
     </resultMap>
     <sql id="Base_Column_List">
@@ -19,5 +19,84 @@
         id, username, `uid`, phone, `password`, `role`, avatar, preferPayment, preferDelivery,
         addr
     </sql>
-
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xyz.kmahyyg.eshopdemo.model.SysUsers" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into sys_users (username, `uid`, phone,
+        `password`, `role`, avatar,
+        preferPayment, preferDelivery, addr
+        )
+        values (#{username,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT},
+        #{password,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR},
+        #{preferpayment,jdbcType=INTEGER}, #{preferdelivery,jdbcType=INTEGER}, #{addr,jdbcType=VARCHAR}
+        )
+    </insert>
+    <delete id="deleteByUserId" parameterType="string">
+        delete from sys_users where uid = #{uid,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByUserName" parameterType="string">
+        delete from sys_users where username = #{username,jdbcType=VARCHAR}
+    </delete>
+    <update id="updateByUserIdSelective" parameterType="xyz.kmahyyg.eshopdemo.model.SysUsers" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        update sys_users
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=BIGINT},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                `role` = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="preferpayment != null">
+                preferPayment = #{preferpayment,jdbcType=INTEGER},
+            </if>
+            <if test="preferdelivery != null">
+                preferDelivery = #{preferdelivery,jdbcType=INTEGER},
+            </if>
+            <if test="addr != null">
+                addr = #{addr,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByUserNameSelective" parameterType="xyz.kmahyyg.eshopdemo.model.SysUsers" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        update sys_users
+        <set>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=BIGINT},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                `role` = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="preferpayment != null">
+                preferPayment = #{preferpayment,jdbcType=INTEGER},
+            </if>
+            <if test="preferdelivery != null">
+                preferDelivery = #{preferdelivery,jdbcType=INTEGER},
+            </if>
+            <if test="addr != null">
+                addr = #{addr,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where username = #{username,jdbcType=INTEGER}
+    </update>
+    <select id="selectByUserId" parameterType="string" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_users where uid = #{uid}
+    </select>
+    <select id="selectByUserName" parameterType="string" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_users where username = #{username}
+    </select>
 </mapper>
