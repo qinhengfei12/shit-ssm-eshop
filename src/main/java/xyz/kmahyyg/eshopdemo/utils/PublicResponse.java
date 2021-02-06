@@ -15,4 +15,10 @@ public class PublicResponse {
 
     @JsonProperty("additional_data")
     private String data;
+
+    public PublicResponse(int status, String message, String data){
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
 }

@@ -16,10 +16,7 @@ import javax.servlet.ServletRequest;
 public class UserRestController {
     @PostMapping("/user/register")
     public ResponseEntity<PublicResponse> register(ServletRequest request){
-        PublicResponse pr = new PublicResponse();
-        pr.setData("success");
-        pr.setMessage("success");
-        pr.setStatus(0);
+        PublicResponse pr = new PublicResponse(0, "success", "success");
         return new ResponseEntity<>(pr, HttpStatus.OK);
     }
 }

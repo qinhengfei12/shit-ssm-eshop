@@ -10,6 +10,12 @@ import java.io.Serializable;
  */
 @Data
 public class SysUsers implements Serializable {
+    public static final int MAX_STATUS = 8;
+    public static final int ACCOUNT_DISABLED = 8;  // 1000
+    public static final int ACCOUNT_EXPIRED = 4;  // 0100
+    public static final int CREDS_EXPIRED = 2;   // 0010
+    public static final int ACCOUNT_LOCKED = 1;  // 0001
+    public static final int ACCOUNT_NORMAL = 0;  // 0000
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -65,7 +71,24 @@ public class SysUsers implements Serializable {
         result = prime * result + ((getPreferPayment() == null) ? 0 : getPreferPayment().hashCode());
         result = prime * result + ((getPreferDelivery() == null) ? 0 : getPreferDelivery().hashCode());
         result = prime * result + ((getAddr() == null) ? 0 : getAddr().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
+    }
+
+    public boolean getAccountNonExpired(){
+        return ((status & SysUsers.ACCOUNT_EXPIRED) >> 2) == 1;
+    }
+
+    public boolean getAccountNonLocked(){
+        return (status & SysUsers.ACCOUNT_LOCKED) == 1;
+    }
+
+    public boolean getCredsNonExpired(){
+        return ((status & SysUsers.CREDS_EXPIRED) >> 1) == 1;
+    }
+
+    public boolean getEnabled(){
+        return ((status & SysUsers.ACCOUNT_DISABLED) >> 3) == 1;
     }
 
 }

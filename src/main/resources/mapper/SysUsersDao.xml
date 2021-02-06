@@ -13,7 +13,7 @@
         <result column="preferPayment" jdbcType="INTEGER" property="preferPayment" />
         <result column="preferDelivery" jdbcType="INTEGER" property="preferDelivery" />
         <result column="addr" jdbcType="VARCHAR" property="addr" />
-        <result column="status" jdbcType="INTEGER" property="status" javaType="xyz.kmahyyg.eshopdemo.enums.UserStatusEnum"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
