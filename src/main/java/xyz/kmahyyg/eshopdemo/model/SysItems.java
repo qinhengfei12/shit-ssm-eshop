@@ -11,7 +11,7 @@ public class SysItems {
 
     private Integer id;
 
-    private String cid;
+    private Integer cid;
 
     private String name;
 

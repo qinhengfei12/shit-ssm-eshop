@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Mapper
 public interface SysItemsDao {
-    int deleteByCateId(String cid);
+    int deleteByCateId(Integer cid);
     int deleteById(Integer id);
     int insert(SysItems record);
     List<SysItems> selectByCateId(String cid);
