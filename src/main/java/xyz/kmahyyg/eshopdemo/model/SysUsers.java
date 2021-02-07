@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * null
+ *
  * @TableName sys_users
  */
 @Data
@@ -55,8 +56,8 @@ public class SysUsers implements Serializable {
         }
         SysUsers other = (SysUsers) that;
         return (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
+                && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
+                && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
     }
 
     @Override
@@ -77,19 +78,19 @@ public class SysUsers implements Serializable {
         return result;
     }
 
-    public boolean getAccountNonExpired(){
+    public boolean getAccountNonExpired() {
         return ((status & SysUsers.ACCOUNT_EXPIRED) >> 2) == 1;
     }
 
-    public boolean getAccountNonLocked(){
+    public boolean getAccountNonLocked() {
         return (status & SysUsers.ACCOUNT_LOCKED) == 1;
     }
 
-    public boolean getCredsNonExpired(){
+    public boolean getCredsNonExpired() {
         return ((status & SysUsers.CREDS_EXPIRED) >> 1) == 1;
     }
 
-    public boolean getEnabled(){
+    public boolean getEnabled() {
         return ((status & SysUsers.ACCOUNT_DISABLED) >> 3) == 1;
     }
 

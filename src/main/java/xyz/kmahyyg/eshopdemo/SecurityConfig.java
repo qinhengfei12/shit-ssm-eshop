@@ -15,7 +15,7 @@ import xyz.kmahyyg.eshopdemo.security.MbtsAuthenticationProvider;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MbtsAuthenticationProvider authenticationProvider;
@@ -34,7 +34,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/show/user/login").loginProcessingUrl("/api/user/login")
-                .defaultSuccessUrl("/",true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/error")
                 .and()
                 .logout().logoutUrl("/show/user/logout")

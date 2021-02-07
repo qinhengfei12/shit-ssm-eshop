@@ -17,7 +17,7 @@ public class UserInfo implements Serializable, UserDetails {
     private boolean credentialsNonExpired;
     private boolean enabled;
 
-    public UserInfo(String username, String password, String role, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled){
+    public UserInfo(String username, String password, String role, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -28,7 +28,7 @@ public class UserInfo implements Serializable, UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.commaSeparatedStringToAuthorityList(role);
     }
 
@@ -43,7 +43,7 @@ public class UserInfo implements Serializable, UserDetails {
     }
 
     @Override
-    public boolean isCredentialsNonExpired(){
+    public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
@@ -63,6 +63,6 @@ public class UserInfo implements Serializable, UserDetails {
     }
 
     public boolean getStatus() {
-        return  isAccountNonExpired() && isAccountNonLocked() && isCredentialsNonExpired() && isEnabled();
+        return isAccountNonExpired() && isAccountNonLocked() && isCredentialsNonExpired() && isEnabled();
     }
 }

@@ -1,10 +1,12 @@
 package xyz.kmahyyg.eshopdemo.model;
+
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * null
+ *
  * @TableName sys_user_cart
  */
 @Data
@@ -31,8 +33,8 @@ public class SysUserCart implements Serializable {
         }
         SysUserCart other = (SysUserCart) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
-            && (this.getItems() == null ? other.getItems() == null : this.getItems().equals(other.getItems()));
+                && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
+                && (this.getItems() == null ? other.getItems() == null : this.getItems().equals(other.getItems()));
     }
 
     @Override

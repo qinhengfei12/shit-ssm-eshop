@@ -14,11 +14,13 @@ public class UserController {
     }
 
     @RequestMapping("/show/user/register")
-    public String toRegister() { return "register"; }
+    public String toRegister() {
+        return "register";
+    }
 
-    @RequestMapping("/show/whoami")
+    @RequestMapping("/show/user/whoami")
     // This is only for debugging purpose, please remove
-    public Object toWhoami(){
+    public Object toWhoami() {
         return SecurityContextHolder.getContext().getAuthentication().getDetails();
     }
 }

@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * null
+ *
  * @TableName sys_item_cates
  */
 @Data
@@ -29,7 +30,7 @@ public class SysItemCates implements Serializable {
         }
         SysItemCates other = (SysItemCates) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
     }
 
     @Override

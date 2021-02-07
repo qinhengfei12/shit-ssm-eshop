@@ -11,11 +11,18 @@ import java.util.List;
 @Mapper
 public interface SysItemsDao {
     int deleteByCateId(Integer cid);
+
     int deleteById(Integer id);
+
     int insert(SysItems record);
+
     List<SysItems> selectByCateId(String cid);
+
     List<SysItems> selectByShopOwnerId(String shopOwnerId);
+
     List<SysItems> selectByItemName(String itemName);
+
     SysItems selectById(Integer id);
+
     int updateByIdSelective(SysItems record);
 }

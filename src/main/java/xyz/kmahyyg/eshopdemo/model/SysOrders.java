@@ -1,13 +1,15 @@
 package xyz.kmahyyg.eshopdemo.model;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Data;
 import xyz.kmahyyg.eshopdemo.enums.OrderStatusEnum;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * null
+ *
  * @TableName sys_orders
  */
 @Data
@@ -76,7 +78,7 @@ public class SysOrders implements Serializable {
         result = prime * result + ((getFinalPrice() == null) ? 0 : getFinalPrice().hashCode());
         result = prime * result + ((getGenTime() == null) ? 0 : getGenTime().hashCode());
         result = prime * result + ((getPaidTime() == null) ? 0 : getPaidTime().hashCode());
-        result = prime * result + ((getDoneTime()== null) ? 0 : getDoneTime().hashCode());
+        result = prime * result + ((getDoneTime() == null) ? 0 : getDoneTime().hashCode());
         result = prime * result + ((getRefundTime() == null) ? 0 : getRefundTime().hashCode());
         result = prime * result + ((getPaymentId() == null) ? 0 : getPaymentId().hashCode());
         result = prime * result + ((getDeliveryId() == null) ? 0 : getDeliveryId().hashCode());

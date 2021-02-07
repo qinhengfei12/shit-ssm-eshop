@@ -1,11 +1,14 @@
 package xyz.kmahyyg.eshopdemo.model;
-import java.io.Serializable;
-import java.math.BigDecimal;
+
 import lombok.Data;
 import xyz.kmahyyg.eshopdemo.enums.ItemStatusEnum;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 /**
  * null
+ *
  * @TableName sys_items
  */
 @Data
@@ -41,13 +44,13 @@ public class SysItems implements Serializable {
         }
         SysItems other = (SysItems) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCid() == null ? other.getCid() == null : this.getCid().equals(other.getCid()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getImage() == null ? other.getImage() == null : this.getImage().equals(other.getImage()))
-            && (this.getDescr() == null ? other.getDescr() == null : this.getDescr().equals(other.getDescr()))
-            && (this.getShopown() == null ? other.getShopown() == null : this.getShopown().equals(other.getShopown()));
+                && (this.getCid() == null ? other.getCid() == null : this.getCid().equals(other.getCid()))
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getImage() == null ? other.getImage() == null : this.getImage().equals(other.getImage()))
+                && (this.getDescr() == null ? other.getDescr() == null : this.getDescr().equals(other.getDescr()))
+                && (this.getShopown() == null ? other.getShopown() == null : this.getShopown().equals(other.getShopown()));
     }
 
     @Override

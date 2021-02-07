@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-@JsonInclude(JsonInclude.Include.ALWAYS)
+@JsonInclude()
 @Data
 public class PublicResponse {
     @JsonProperty("status")
@@ -13,7 +13,7 @@ public class PublicResponse {
     @JsonProperty("message")
     private String message;
 
-    public PublicResponse(int status, String message){
+    public PublicResponse(int status, String message) {
         this.status = status;
         this.message = message;
     }

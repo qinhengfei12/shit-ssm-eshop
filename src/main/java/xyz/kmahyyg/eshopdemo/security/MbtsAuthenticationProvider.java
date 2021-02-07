@@ -22,13 +22,13 @@ public class MbtsAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
 
         UserInfo userInfo = (UserInfo) userDService.loadUserByUsername(username);
-        if (userInfo == null){
+        if (userInfo == null) {
             throw new UsernameNotFoundException("用户名或密码不正确");
         }
-        if (!new BCryptPasswordEncoder().matches(password, userInfo.getPassword())){
+        if (!new BCryptPasswordEncoder().matches(password, userInfo.getPassword())) {
             throw new BadCredentialsException("用户名或密码不正确");
         }
-        if (!userInfo.getStatus()){
+        if (!userInfo.getStatus()) {
             throw new LockedException("用户状态异常！");
         }
         return new UsernamePasswordAuthenticationToken(userInfo, password, userInfo.getAuthorities());
