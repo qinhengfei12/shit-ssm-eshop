@@ -17,10 +17,10 @@ public class UserController {
     public String toRegister() {
         return "register";
     }
-
     @RequestMapping("/show/user/whoami")
     // This is only for debugging purpose, please remove
     public Object toWhoami() {
         return SecurityContextHolder.getContext().getAuthentication().getDetails();
     }
+
 }

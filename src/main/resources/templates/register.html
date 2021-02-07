@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
 <body>
-
+<h1>Register Form</h1>
+<form th:action="@{/api/user/register}" method="post" name="registerForm">
+    <fieldset>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username"/>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"/>
+        <label for="phone">Phone Number</label>
+        <input type="number" id="phone" name="phone"/>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address"/>
+        <label for="captcha">Captcha</label>
+        <input type="number" id="captcha" name="captcha"/>
+        <div class="form-actions">
+            <button type="button" class="btn" onclick="sendCapt()">Get CaptCha</button>
+            <button type="submit" class="btn" disabled>Submit</button>
+        </div>
+    </fieldset>
+</form>
+<script type="application/javascript">
+    function sendCapt(){
+        document.getElementById("phone")
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </body>
 </html>

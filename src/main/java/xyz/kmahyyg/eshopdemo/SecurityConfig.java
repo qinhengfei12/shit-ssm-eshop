@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().ignoringAntMatchers("/api/**")
                 .and()
-                .authorizeRequests().antMatchers("/", "/index", "/show/user/login", "/static/**", "/show/user/register", "/api/user/register", "/api/user/login", "/api/user/logout", "/show/user/logout", "/error").permitAll()
+                .authorizeRequests().antMatchers("/", "/index", "/show/user/login", "/static/**", "/show/user/register", "/api/user/register", "/api/user/login", "/api/user/logout", "/show/user/logout", "/error", "/api/user/captcha").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/show/admin/**").hasRole("ADMIN")
                 .and()
