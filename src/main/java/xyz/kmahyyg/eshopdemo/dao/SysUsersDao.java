@@ -21,4 +21,6 @@ public interface SysUsersDao {
     SysUsers selectByUserId(String uid);
 
     SysUsers selectByUserName(String username);
+
+    SysUsers selectByUserPhone(long phoneNo);
 }

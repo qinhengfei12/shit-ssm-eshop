@@ -28,9 +28,9 @@
         paidTime, doneTime, refundTime,
         paymentId, deliveryId)
         values (#{oid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{items,jdbcType=VARCHAR},
-        #{uid,jdbcType=VARCHAR}, #{finalprice,jdbcType=DECIMAL}, #{gentime,jdbcType=TIMESTAMP},
-        #{paidtime,jdbcType=TIMESTAMP}, #{donetime,jdbcType=TIMESTAMP}, #{refundtime,jdbcType=TIMESTAMP},
-        #{paymentid,jdbcType=INTEGER}, #{deliveryid,jdbcType=INTEGER})
+        #{uid,jdbcType=VARCHAR}, #{finalPrice,jdbcType=DECIMAL}, #{genTime,jdbcType=TIMESTAMP},
+        #{paidTime,jdbcType=TIMESTAMP}, #{doneTime,jdbcType=TIMESTAMP}, #{refundTime,jdbcType=TIMESTAMP},
+        #{paymentId,jdbcType=INTEGER}, #{deliveryId,jdbcType=INTEGER})
     </insert>
     <select id="selectByOid" parameterType="string" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from sys_orders where oid = #{oid}

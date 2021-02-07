@@ -28,7 +28,7 @@
         )
         values (#{username,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT},
         #{password,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR},
-        #{preferpayment,jdbcType=INTEGER}, #{preferdelivery,jdbcType=INTEGER}, #{addr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+        #{preferPayment,jdbcType=INTEGER}, #{preferDelivery,jdbcType=INTEGER}, #{addr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
         )
     </insert>
     <delete id="deleteByUserId" parameterType="string">
@@ -56,10 +56,10 @@
                 avatar = #{avatar,jdbcType=VARCHAR},
             </if>
             <if test="preferpayment != null">
-                preferPayment = #{preferpayment,jdbcType=INTEGER},
+                preferPayment = #{preferPayment,jdbcType=INTEGER},
             </if>
             <if test="preferdelivery != null">
-                preferDelivery = #{preferdelivery,jdbcType=INTEGER},
+                preferDelivery = #{preferDelivery,jdbcType=INTEGER},
             </if>
             <if test="addr != null">
                 addr = #{addr,jdbcType=VARCHAR},
@@ -86,10 +86,10 @@
                 avatar = #{avatar,jdbcType=VARCHAR},
             </if>
             <if test="preferpayment != null">
-                preferPayment = #{preferpayment,jdbcType=INTEGER},
+                preferPayment = #{preferPayment,jdbcType=INTEGER},
             </if>
             <if test="preferdelivery != null">
-                preferDelivery = #{preferdelivery,jdbcType=INTEGER},
+                preferDelivery = #{preferDelivery,jdbcType=INTEGER},
             </if>
             <if test="addr != null">
                 addr = #{addr,jdbcType=VARCHAR},
@@ -105,5 +105,8 @@
     </select>
     <select id="selectByUserName" parameterType="string" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from sys_users where username = #{username}
+    </select>
+    <select id="selectByUserPhone" parameterType="long" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_users where phone = #{phoneNo}
     </select>
 </mapper>

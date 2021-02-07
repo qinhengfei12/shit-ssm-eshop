@@ -79,19 +79,19 @@ public class SysUsers implements Serializable {
     }
 
     public boolean getAccountNonExpired() {
-        return ((status & SysUsers.ACCOUNT_EXPIRED) >> 2) == 1;
+        return !(((status & SysUsers.ACCOUNT_EXPIRED) >> 2) == 1);
     }
 
     public boolean getAccountNonLocked() {
-        return (status & SysUsers.ACCOUNT_LOCKED) == 1;
+        return !((status & SysUsers.ACCOUNT_LOCKED) == 1);
     }
 
     public boolean getCredsNonExpired() {
-        return ((status & SysUsers.CREDS_EXPIRED) >> 1) == 1;
+        return !(((status & SysUsers.CREDS_EXPIRED) >> 1) == 1);
     }
 
     public boolean getEnabled() {
-        return ((status & SysUsers.ACCOUNT_DISABLED) >> 3) == 1;
+        return ((status & SysUsers.ACCOUNT_DISABLED) >> 3) == 0;
     }
 
 }
