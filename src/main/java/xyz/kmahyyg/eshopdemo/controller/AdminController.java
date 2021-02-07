@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AdminController {
     @RequestMapping("/show/admin")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String showAdmin(){
         return "admin";
+    }
+
+    @RequestMapping("/show/vuln/admin")
+    @ResponseBody
+    public String showVulnAdmin(){
+        return "vuln-imadmin";
     }
 }

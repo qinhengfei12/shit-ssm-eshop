@@ -1,6 +1,6 @@
 前端路由：
 
-`/ -> /index -> template: src/main/resources/templates/static/index.html`: 展示首页，@PreAuthorize
+`/ -> /index -> template: src/main/resources/templates/index.html`: 展示首页，@PreAuthorize
 
 `/show/search -> template: templates/searchres.html`: 展示搜索结构，要求先登陆
 
