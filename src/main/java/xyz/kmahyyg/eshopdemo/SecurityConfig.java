@@ -25,7 +25,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http
                 .csrf().ignoringAntMatchers("/api/**")
                 .and()
-                .authorizeRequests().antMatchers("/", "/index", "/show/**", "/static/**","/api/user/register", "/api/user/login", "/error").permitAll()
+                .authorizeRequests().antMatchers("/", "/index", "/show/user/login", "/static/**", "/show/user/register", "/api/user/register", "/api/user/login", "/api/user/logout", "/show/user/logout", "/error").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/show/admin/**").hasRole("ADMIN")
+                .and()
+                .authorizeRequests().antMatchers("/show/manage/**").hasRole("SHOPOWNER")
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
@@ -33,10 +37,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/",true)
                 .failureUrl("/error")
                 .and()
-                .rememberMe().rememberMeParameter("rememberme").rememberMeCookieName("rememberMe")
-                .and()
                 .logout().logoutUrl("/show/user/logout")
                 .deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe().rememberMeCookieName("rememberMe").rememberMeParameter("rememberme")
+                .and()
+                .sessionManagement().maximumSessions(2)
         ;
     }
 
@@ -49,6 +55,5 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 }
+
