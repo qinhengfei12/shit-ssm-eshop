@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class SupplyAndPaymentContoller {
+public class SupplyAndPaymentRestContoller {
     @PostMapping("/api/delivery/all")
     public List<DeliveryResponse> showAllDelivery(){
         List<DeliveryResponse> dr = new ArrayList<DeliveryResponse>();
