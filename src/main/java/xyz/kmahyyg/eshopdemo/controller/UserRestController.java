@@ -77,10 +77,10 @@ public class UserRestController {
             // cartList.put("cart", "");
             // In Debug:
             // this is just an empty value, for example of cart structure.
-            Map<String, Integer> singleItemInCart = new HashMap<>();
-            singleItemInCart.put("itemID", 1);
-            singleItemInCart.put("itemNum", 2);
-            cartList.add(singleItemInCart);
+//            Map<String, Integer> singleItemInCart = new HashMap<>();
+//            singleItemInCart.put("itemID", 1);
+//            singleItemInCart.put("itemNum", 2);
+//            cartList.add(singleItemInCart);
             // Production:
             cartListJSON.put("cart", cartList);
             try{
