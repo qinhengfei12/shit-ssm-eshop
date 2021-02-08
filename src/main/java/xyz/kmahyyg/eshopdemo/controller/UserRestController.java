@@ -71,16 +71,16 @@ public class UserRestController {
             SysUserCart newUserCart = new SysUserCart();
             newUserCart.setUid(newUser.getUid());
             // build an empty cart, admin should not have any item in cart since you should not use it for shopping
-            Map<String, List<Map<String, String>>> cartListJSON= new HashMap<>();
-            List<Map<String, String>> cartList = new ArrayList<>();
+            Map<String, List<Map<String, Integer>>> cartListJSON= new HashMap<>();
+            List<Map<String, Integer>> cartList = new ArrayList<>();
             // In Production:
             // cartList.put("cart", "");
             // In Debug:
             // this is just an empty value, for example of cart structure.
-//            Map<String, String> singleItemInCart = new HashMap<>();
-//            singleItemInCart.put("itemID", "1");
-//            singleItemInCart.put("itemNum", "2");
-//            cartList.add(singleItemInCart);
+            Map<String, Integer> singleItemInCart = new HashMap<>();
+            singleItemInCart.put("itemID", 1);
+            singleItemInCart.put("itemNum", 2);
+            cartList.add(singleItemInCart);
             // Production:
             cartListJSON.put("cart", cartList);
             try{
