@@ -1,5 +1,7 @@
 package xyz.kmahyyg.eshopdemo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -9,13 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.kmahyyg.eshopdemo.common.PublicResponse;
+import xyz.kmahyyg.eshopdemo.dao.SysUserCartDao;
 import xyz.kmahyyg.eshopdemo.dao.SysUsersDao;
 import xyz.kmahyyg.eshopdemo.enums.ErrorStatusEnum;
+import xyz.kmahyyg.eshopdemo.model.SysUserCart;
 import xyz.kmahyyg.eshopdemo.model.SysUsers;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -28,6 +31,9 @@ public class UserRestController {
 
     @Autowired
     private SysUsersDao sysUsersDao;
+
+    @Autowired
+    private SysUserCartDao sysUserCartDao;
 
     @PostMapping("/user/register")
     public ResponseEntity<Object> register(HttpServletRequest request) {
@@ -61,9 +67,32 @@ public class UserRestController {
             newUser.setStatus(SysUsers.ACCOUNT_NORMAL);
             newUser.setPreferDelivery(1);
             newUser.setPreferPayment(1);
-            if (sysUsersDao.insert(newUser) == 1){
+            // also create their cart
+            SysUserCart newUserCart = new SysUserCart();
+            newUserCart.setUid(newUser.getUid());
+            // build an empty cart, admin should not have any item in cart since you should not use it for shopping
+            Map<String, List<Map<String, String>>> cartListJSON= new HashMap<>();
+            List<Map<String, String>> cartList = new ArrayList<>();
+            // In Production:
+            // cartList.put("cart", "");
+            // In Debug:
+            // this is just an empty value, for example of cart structure.
+//            Map<String, String> singleItemInCart = new HashMap<>();
+//            singleItemInCart.put("itemID", "1");
+//            singleItemInCart.put("itemNum", "2");
+//            cartList.add(singleItemInCart);
+            // Production:
+            cartListJSON.put("cart", cartList);
+            try{
+                newUserCart.setItems(new ObjectMapper().writeValueAsString(cartListJSON));
+            } catch (JsonProcessingException e){
+                pr.setStatus(ErrorStatusEnum.FAILED_INTERNAL.ordinal());
+                pr.setMessage(e.toString());
+                return new ResponseEntity<>(pr, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            if (sysUsersDao.insert(newUser) == 1 && sysUserCartDao.insert(newUserCart) == 1){
                 return new ResponseEntity<>(pr, HttpStatus.OK);
-            };
+            }
             return new ResponseEntity<>(pr, HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
             return new ResponseEntity<>(pr, HttpStatus.BAD_REQUEST);
