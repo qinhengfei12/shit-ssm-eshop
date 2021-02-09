@@ -31,21 +31,10 @@ public class UserController {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    @RequestMapping("/show/vuln/useraddr")
+    @RequestMapping("/show/user/logout")
     @ResponseBody
-    // this is only for testing purpose to enhance our ability to do some privilege escalation.
-    public ResponseEntity<PublicResponse> showSomeoneAddr(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String vuln = request.getParameter("vuln");    // if vuln=1, the privilege escalation could be done by not checking identity
-        if (!vuln.isEmpty() && vuln.equals("1")){
-
-            // directly return the data of anybody
-        } else {
-            // check if the username equals to current logged in user.
-            // then return
-        }
-        PublicResponse pr = new PublicResponse(1,"hello world");
-        return new ResponseEntity<PublicResponse>(pr, HttpStatus.ACCEPTED);
+    public ResponseEntity<PublicResponse> showLogout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return new ResponseEntity<PublicResponse>(new PublicResponse(0, "Logged Out!"), HttpStatus.OK);
     }
-
 }
