@@ -26,7 +26,6 @@ public class ItemController {
     }
     @RequestMapping("show/item/search")
     public String searchResult(Model model, String itemName){
-        //itemName = UserInputSanitizer.SanitizeUserInput(itemName);
         List<SysItems> searchItems = sysItemsDao.selectByItemName(itemName);
         if(searchItems == null){
             return "error";
