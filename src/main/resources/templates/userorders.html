@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>当前用户订单查看</title>
 </head>
 <body>
-写个前端吧
+<table>
+    <thead>
+    <tr>
+        <th class="am-hide-sm-only">订单id</th>
+        <th>订单状态</th>
+        <th>订单价格</th>
+        <th class="am-hide-sm-only">生成时间</th>
+        <th class="am-hide-sm-only">支付时间</th>
+        <th class="am-hide-sm-only">完成时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.oid}">订单id</td>
+        <td th:text="${order.status}">订单状态</td>
+        <td th:text="${order.finalPrice}">订单价格</td>
+        <td th:text="${#dates.format(order.genTime)}">生成时间</td>
+        <td th:text="${#dates.format(order.paidTime)}">支付时间</td>
+        <td th:text="${#dates.format(order.doneTime)}">完成时间</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
