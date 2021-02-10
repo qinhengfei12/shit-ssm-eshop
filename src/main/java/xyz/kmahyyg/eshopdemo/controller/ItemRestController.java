@@ -1,22 +1,23 @@
 package xyz.kmahyyg.eshopdemo.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.kmahyyg.eshopdemo.common.PublicResponse;
-import xyz.kmahyyg.eshopdemo.enums.ErrorStatusEnum;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import xyz.kmahyyg.eshopdemo.utils.UserInputSanitizer;
 
 @RestController
-public class GoodRestController {
+public class ItemRestController {
     @PostMapping("/api/search")
     void search(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String keyword = request.getParameter("q");
-        response.sendRedirect("/show/good/search?itemName="+keyword);
+        try {
+            String keyword = request.getParameter("q");
+            //keyword = UserInputSanitizer.SanitizeUserInput(keyword);
+            response.sendRedirect("/show/item/search?itemName=" + keyword);
+        }catch (IOException e){
+            response.sendRedirect("/show/user/login");
+        }
+
     }
 }
