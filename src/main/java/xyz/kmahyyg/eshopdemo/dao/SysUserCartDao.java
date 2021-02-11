@@ -3,6 +3,8 @@ package xyz.kmahyyg.eshopdemo.dao;
 import org.apache.ibatis.annotations.Mapper;
 import xyz.kmahyyg.eshopdemo.model.SysUserCart;
 
+import java.util.List;
+
 /**
  * @Entity xyz.kmahyyg.eshopdemo.model.SysUserCart
  */
@@ -14,5 +16,5 @@ public interface SysUserCartDao {
 
     int updateByUserId(SysUserCart record);
 
-    SysUserCart selectByUserId(String uid);
+    List<SysUserCart> selectByUserId(String uid);
 }
