@@ -25,8 +25,17 @@
         <td th:text="${#dates.format(order.genTime)}">生成时间</td>
         <td th:text="${#dates.format(order.paidTime)}">支付时间</td>
         <td th:text="${#dates.format(order.doneTime)}">完成时间</td>
+        <td><button th:data-name="${order.oid}" onclick="del(this.getAttribute('data-name'))" type="button">删除订单</button></td>
     </tr>
     </tbody>
 </table>
+<script>
+    function del(orderid){
+        if(confirm("确认删除该订单吗?")==true){
+            window.location.href="delorder?orderId="+orderid;
+        }
+        return false;
+    }
+</script>
 </body>
 </html>

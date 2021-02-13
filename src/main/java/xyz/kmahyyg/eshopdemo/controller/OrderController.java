@@ -100,14 +100,19 @@ public class OrderController {
                     record.setPaymentId(1);
                     record.setDeliveryId(1);
                     sysOrdersDao.insert(record);
-
-                    List<SysOrders> allOrdersByUser = sysOrdersDao.selectByUserId(currentUserUid);
-                    model.addAttribute("orders",allOrdersByUser);
                 }
             }
         }
-        return "userorders";
+        return "redirect:/show/user/order";
     }
 
+
+    @RequestMapping("/show/user/delorder")
+    public String delOrderofCurrentUser(String orderId){
+        if(orderId != null) {
+            sysOrdersDao.deleteOrderByOid(orderId);
+        }
+        return "redirect:/show/user/order";
+    }
 
 }
