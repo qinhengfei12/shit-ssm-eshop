@@ -57,6 +57,7 @@ public class CartController {
                         JsonNode itemNum = object.get("itemNum");
                         int itemId = itemID.asInt();
                         int Num = itemNum.asInt();
+                        //todo: build a list of itemids, and iterate all
                         SysItems userCartInfo = sysItemsDao.selectById(itemId);
                         if(userCartInfo == null){
                             return "error";
