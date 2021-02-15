@@ -14,8 +14,7 @@ import xyz.kmahyyg.eshopdemo.common.PublicResponse;
 import xyz.kmahyyg.eshopdemo.dao.SysItemsDao;
 import xyz.kmahyyg.eshopdemo.dao.SysUserCartDao;
 import xyz.kmahyyg.eshopdemo.dao.SysUsersDao;
-import xyz.kmahyyg.eshopdemo.model.SysItems;
-import xyz.kmahyyg.eshopdemo.model.SysUserCart;
+import xyz.kmahyyg.eshopdemo.model.*;
 import xyz.kmahyyg.eshopdemo.security.UserInfo;
 import xyz.kmahyyg.eshopdemo.utils.UserInfoUtil;
 
@@ -41,40 +40,19 @@ public class CartController {
         String currentUserUid = userInfoUtil.getCurrentUserID();
             if (!currentUserUid.isEmpty()){
                 SysUserCart userCart = sysUserCartDao.selectByUserId(currentUserUid);
-//                try {
-//                    List ItemIdList = new ArrayList();
-//                    List ItemNumList = new ArrayList();
-//                    List ShowCartInfo = new ArrayList();
-//                    ObjectMapper mapper = new ObjectMapper();
-//                    String  Items = userCart.getItems();
-//                    String nodeName = "cart";
-//                    JsonNode rootNode = mapper.readTree(Items);
-//                    JsonNode elements = rootNode.get(nodeName);
-//                    for(int i=0; i<elements.size(); i++){
-//                        JsonNode object = elements.get(i);
-//                        JsonNode itemID = object.get("itemID");
-//                        JsonNode itemNum = object.get("itemNum");
-//                        int itemId = itemID.asInt();
-//                        int Num = itemNum.asInt();
-//                        ItemIdList.add(itemID);
-//                        ItemNumList.add(itemNum);
-//                    }
-//                    for(int j=0;j<ItemIdList.size();j++){
-//                        Object Id = ItemIdList.get(j);
-//                        SysItems userCartInfo = sysItemsDao.selectById(Integer.parseInt(Id.toString()));
-//                        if(userCartInfo == null){
-//                            return "error";
-//                        }
-//                        ShowCartInfo.add(userCartInfo);
-//                    }
-//                    model.addAttribute("CartInfo",ShowCartInfo);
-//                    model.addAttribute("itemNums",ItemIdList);
-//
-//                } catch (JsonProcessingException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            //TODO: render the orders data in template html
+                SingleUserCart cartLst = userCart.getItems();
+                List<SingleItemInCart> itemsInCart = cartLst.getCart();
+                List<ItemRepresentationInCart> itemsShowInCart = new ArrayList<>();
+                // user cart might be empty
+                if (!itemsInCart.isEmpty()) {
+                    // for each item inside cart
+                    // verify the number of item when inserting into database.
+                    for (SingleItemInCart item:itemsInCart) {
+                        ItemRepresentationInCart curItem = new ItemRepresentationInCart(sysItemsDao.selectById(item.getItemId()), item.getItemNum());
+                        itemsShowInCart.add(curItem);
+                    }
+                }
+                model.addAttribute("cartItems", itemsShowInCart);
         }
         return "cart";
     }

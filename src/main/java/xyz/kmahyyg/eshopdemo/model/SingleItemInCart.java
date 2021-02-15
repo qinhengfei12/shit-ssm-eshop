@@ -8,6 +8,6 @@ public class SingleItemInCart {
     @JsonProperty("itemId")
     private int itemId;
 
-    @JsonProperty("itemNo")
-    private int itemNo;
+    @JsonProperty("itemNum")
+    private int itemNum;
 }
