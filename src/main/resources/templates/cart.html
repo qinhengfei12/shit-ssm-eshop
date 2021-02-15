@@ -20,23 +20,23 @@
         a:link, a:visited { text-decoration: none;}
         a:hover, a:active { text-decoration: none;}
 
-        #shopping {text-align:center; margin:0 auto;width: 80%}
-        #shopping table { width:80%; line-height:24px; border-top:2px solid #FF7F00; border-bottom:2px solid #FF7F00; }
-        #shopping table th { background:#FFE7BA; color:#FF7F00; }
-        #shopping table td { padding:10px 0; border-top:1px solid #FF7F00; }
-        #shopping table td.thumb img { border:1px solid #dfdfe0; margin:0 10px; vertical-align:middle; }
-        #shopping table td.price,
-        #shopping table td.number { text-align:center; width:100px; border-left:1px solid #e1e1e1; }
-        #shopping table td.price { color:#cc3300; font-weight:bold; }
-        #shopping table td.delete { width:60px; text-align:center; border-left:1px solid #e1e1e1; }
-        #shopping table td.number span {padding:0 2px;border:1px #c0c0c0 solid;cursor:pointer;}
-        #shopping table td.number input { width:20px; border:1px solid #c9c9c9; padding:2px; text-align:center; }
-        #shopping .total{height:60px;}
-        #shopping .total span{line-height:60px;}
-        #shopping .buyButton { text-align:right; padding:10px 0; }
-        #shopping .deleteButton { text-align:right; padding:10px 0; }
-        #shopping .button input { border:0; width:144px; height:35px; cursor:pointer; }
-        #shopping .shadow { width:500px; margin:50px auto; }
+        #showCartList {text-align:center; margin:0 auto;width: 80%}
+        #showCartList table { width:80%; line-height:24px; border-top:2px solid #FF7F00; border-bottom:2px solid #FF7F00; }
+        #showCartList table th { background:#FFE7BA; color:#FF7F00; }
+        #showCartList table td { padding:10px 0; border-top:1px solid #FF7F00; }
+        #showCartList table td.thumb img { border:1px solid #dfdfe0; margin:0 10px; vertical-align:middle; }
+        #showCartList table td.price,
+        #showCartList table td.number { text-align:center; width:100px; border-left:1px solid #e1e1e1; }
+        #showCartList table td.price { color:#cc3300; font-weight:bold; }
+        #showCartList table td.delete { width:60px; text-align:center; border-left:1px solid #e1e1e1; }
+        #showCartList table td.number span {padding:0 2px;border:1px #c0c0c0 solid;cursor:pointer;}
+        #showCartList table td.number input { width:20px; border:1px solid #c9c9c9; padding:2px; text-align:center; }
+        #showCartList .total{height:60px;}
+        #showCartList .total span{line-height:60px;}
+        #showCartList .buyButton { text-align:right; padding:10px 0; }
+        #showCartList .deleteButton { text-align:right; padding:10px 0; }
+        #showCartList .button input { border:0; width:144px; height:35px; cursor:pointer; }
+        #showCartList .shadow { width:500px; margin:50px auto; }
     </style>
 </head>
 <body>
@@ -44,25 +44,38 @@
 <h1>我的购物车</h1>
 <a href="/">首页</a>
 <hr>
-<div id="shopping">
+<div id="showCartList">
         <table id="itemTable" border="1">
             <tr>
                 <th>商品名称</th>
                 <th>商品图片</th>
                 <th>商品描述</th>
                 <th>商品单价</th>
-                <th>购买数量</th>
+                <th>用户操作</th>
             </tr>
             <tr th:each="sItem:${cartItems}">
                 <td th:text="${sItem.getCurrentItem().getName()}"></td>
                 <td><img th:src="${sItem.getCurrentItem().getImage()}"></td>
                 <td th:text="${sItem.getCurrentItem().getDescr()}"></td>
                 <td class="sPrice" th:text="${sItem.getCurrentItem().getPrice()}"></td>
-                <td class="sNo" th:text="${sItem.getItemNum()}"></td>
+                <td>
+                    <form class="sItemCartUpdateForm">
+                        <input type="hidden" name="sItemID" id="sItemID" th:value="${sItem.getCurrentItem().getId()}">
+                        <label for="sItemNo">当前数量</label>
+                        <input type="number" name="sItemNo" id="sItemNo" th:value="${sItem.getItemNum()}">
+                        <button onclick="deleteItemFromCart(this)">删除当前商品</button>
+                        <label for="sItemChecked">勾选以结算</label>
+                        <input type="checkbox" id="sItemChecked" name="sItemChecked">
+                    </form>
+                </td>
             </tr>
         </table>
+        <button onclick="uploadCart()">更新购物车内的物品和数量到服务器</button>
+        <button onclick="updateFinalPrice()">点击更新勾选商品总价</button>
+        <button onclick="submitOrder()">将勾选商品提交订单</button>
         <h2>选中总价 <span id="finalPrice">0.00</span></h2>
 </div>
 </body>
+<script src="/static/js/updateOrder.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </html>
