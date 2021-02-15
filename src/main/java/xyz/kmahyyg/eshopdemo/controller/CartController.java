@@ -1,27 +1,16 @@
 package xyz.kmahyyg.eshopdemo.controller;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import xyz.kmahyyg.eshopdemo.common.PublicResponse;
 import xyz.kmahyyg.eshopdemo.dao.SysItemsDao;
 import xyz.kmahyyg.eshopdemo.dao.SysUserCartDao;
-import xyz.kmahyyg.eshopdemo.dao.SysUsersDao;
 import xyz.kmahyyg.eshopdemo.model.*;
-import xyz.kmahyyg.eshopdemo.security.UserInfo;
 import xyz.kmahyyg.eshopdemo.utils.UserInfoUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CartController {
