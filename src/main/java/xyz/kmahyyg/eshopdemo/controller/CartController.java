@@ -46,6 +46,9 @@ public class CartController {
                 String currentUserUid = sysUsersDao.selectByUserName(currentUsername).getUid();
                 SysUserCart userCart = sysUserCartDao.selectByUserId(currentUserUid);
                 try {
+                    List ItemIdList = new ArrayList();
+                    List ItemNumList = new ArrayList();
+                    List ShowCartInfo = new ArrayList();
                     ObjectMapper mapper = new ObjectMapper();
                     String  Items = userCart.getItems();
                     String nodeName = "cart";
@@ -57,14 +60,20 @@ public class CartController {
                         JsonNode itemNum = object.get("itemNum");
                         int itemId = itemID.asInt();
                         int Num = itemNum.asInt();
-                        //todo: build a list of itemids, and iterate all
-                        SysItems userCartInfo = sysItemsDao.selectById(itemId);
+                        ItemIdList.add(itemID);
+                        ItemNumList.add(itemNum);
+                    }
+                    for(int j=0;j<ItemIdList.size();j++){
+                        Object Id = ItemIdList.get(j);
+                        SysItems userCartInfo = sysItemsDao.selectById(Integer.parseInt(Id.toString()));
                         if(userCartInfo == null){
                             return "error";
                         }
-                        model.addAttribute("CartInfo", userCartInfo);
-                        model.addAttribute("itemNums",Num);
+                        ShowCartInfo.add(userCartInfo);
                     }
+                    model.addAttribute("CartInfo", ShowCartInfo);
+                    model.addAttribute("itemNums",ItemIdList);
+
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
