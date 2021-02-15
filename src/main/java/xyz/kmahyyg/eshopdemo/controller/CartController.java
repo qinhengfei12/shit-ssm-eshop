@@ -1,13 +1,10 @@
 package xyz.kmahyyg.eshopdemo.controller;
 
-import com.fasterxml.jackson.core.JsonParseException;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +14,6 @@ import xyz.kmahyyg.eshopdemo.common.PublicResponse;
 import xyz.kmahyyg.eshopdemo.dao.SysItemsDao;
 import xyz.kmahyyg.eshopdemo.dao.SysUserCartDao;
 import xyz.kmahyyg.eshopdemo.dao.SysUsersDao;
-import xyz.kmahyyg.eshopdemo.enums.ErrorStatusEnum;
 import xyz.kmahyyg.eshopdemo.model.SysItems;
 import xyz.kmahyyg.eshopdemo.model.SysUserCart;
 import xyz.kmahyyg.eshopdemo.security.UserInfo;
@@ -41,7 +37,7 @@ public class CartController {
     //return cart page
     @RequestMapping("/show/user/cart")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String showCart(Model model) throws JsonProcessingException {
+    public String showCart(Model model) {
         PublicResponse pr = new PublicResponse(0, "success");
         UserInfo currentUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (currentUser != null) {
@@ -54,23 +50,23 @@ public class CartController {
                     String  Items = userCart.getItems();
                     String nodeName = "cart";
                     JsonNode rootNode = mapper.readTree(Items);
-                    JsonNode value = rootNode.path(nodeName);
-                    List<Map<String, Integer>> cartList = mapper.readValue(value.toString(), new TypeReference<List<Map<String, Integer>>>() {});
-                    for(Map<String, Integer> m : cartList){
-                        for(Map.Entry<String, Integer> k: m.entrySet()) {
-                            if(k.getKey().equals("itemID")){
-                                SysItems sysItems= sysItemsDao.selectById(k.getValue());
-
-                            }
+                    JsonNode elements = rootNode.get(nodeName);
+                    for(int i=0; i<elements.size(); i++){
+                        JsonNode object = elements.get(i);
+                        JsonNode itemID = object.get("itemID");
+                        JsonNode itemNum = object.get("itemNum");
+                        int itemId = itemID.asInt();
+                        int Num = itemNum.asInt();
+                        SysItems userCartInfo = sysItemsDao.selectById(itemId);
+                        if(userCartInfo == null){
+                            return "error";
                         }
+                        model.addAttribute("CartInfo", userCartInfo);
+                        model.addAttribute("itemNums",Num);
                     }
-
-
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-
-
             }
             //TODO: render the orders data in template html
         }
