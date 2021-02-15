@@ -36,7 +36,6 @@ public class CartController {
 
     //return cart page
     @RequestMapping("/show/user/cart")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public String showCart(Model model) {
         PublicResponse pr = new PublicResponse(0, "success");
         UserInfo currentUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

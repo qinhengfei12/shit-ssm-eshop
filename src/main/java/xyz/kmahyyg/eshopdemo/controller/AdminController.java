@@ -13,9 +13,4 @@ public class AdminController {
         return "admin";
     }
 
-    @RequestMapping("/show/vuln/admin")
-    @ResponseBody
-    public String showVulnAdmin(){
-        return "vuln-imadmin";
-    }
 }
