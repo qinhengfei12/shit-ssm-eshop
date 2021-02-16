@@ -53,7 +53,7 @@
                 <th>商品单价</th>
                 <th>用户操作</th>
             </tr>
-            <tr th:each="sItem:${cartItems}">
+            <tr th:each="sItem:${cartItems}" id="product">
                 <td th:text="${sItem.getCurrentItem().getName()}"></td>
                 <td><img th:src="${sItem.getCurrentItem().getImage()}"></td>
                 <td th:text="${sItem.getCurrentItem().getDescr()}"></td>
@@ -62,7 +62,7 @@
                     <form class="sItemCartUpdateForm">
                         <input type="hidden" name="sItemID" id="sItemID" th:value="${sItem.getCurrentItem().getId()}">
                         <label for="sItemNo">当前数量</label>
-                        <input type="number" name="sItemNo" id="sItemNo" th:value="${sItem.getItemNum()}">
+                        <input class="ItemNo" type="number" name="sItemNo" id="sItemNo" th:value="${sItem.getItemNum()}">
                         <button onclick="deleteItemFromCart(this)">删除当前商品</button>
                         <label for="sItemChecked">勾选以结算</label>
                         <input type="checkbox" id="sItemChecked" name="sItemChecked">
@@ -76,6 +76,6 @@
         <h2>选中总价 <span id="finalPrice">0.00</span></h2>
 </div>
 </body>
-<script src="/static/js/updateOrder.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="/static/js/updateOrder.js"></script>
 </html>
