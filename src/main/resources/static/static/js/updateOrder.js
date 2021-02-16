@@ -21,16 +21,22 @@ function uploadCart() {
 }
 //删除当前商品
 function deleteItemFromCart() {
-    let ID = document.getElementById("sItemID").value;
-    var URL = "/api/cart/delete?sItemID=" + ID;
-    $.ajax({
-        type: "get",
-        url: URL,
-        data: "",
-        encode: true,
-    }).done(function(data){
-        alert(data.message);
-    })
+    var $tr = $("#itemTable").find("tr[id]");
+    $tr.each(function(i, dom) {
+        if($(dom).find("#sItemChecked").is(":checked")){
+            var ID = $(dom).find("#sItemID").val(); //商品ID
+            var URL = "/api/cart/delete?sItemID=" + ID;
+            $.ajax({
+                type: "get",
+                url: URL,
+                data: "",
+                encode: true,
+            }).done(function(data){
+                alert(data.message);
+            })
+
+        }
+    });
 
 }
 

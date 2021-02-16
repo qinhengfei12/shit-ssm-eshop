@@ -51,7 +51,8 @@
                 <th>商品图片</th>
                 <th>商品描述</th>
                 <th>商品单价</th>
-                <th>用户操作</th>
+                <th>商品数量</th>
+                <th>选择</th>
             </tr>
             <tr th:each="sItem:${cartItems}" id="product">
                 <td th:text="${sItem.getCurrentItem().getName()}"></td>
@@ -62,15 +63,17 @@
                     <input type="hidden" name="sItemID" id="sItemID" th:value="${sItem.getCurrentItem().getId()}">
                     <label for="sItemNo">当前数量</label>
                     <input class="ItemNo" type="number" name="sItemNo" id="sItemNo" th:value="${sItem.getItemNum()}">
-                    <button onclick="deleteItemFromCart(this)">删除当前商品</button>
-                    <label for="sItemChecked">勾选以结算</label>
-                    <input type="checkbox" id="sItemChecked" name="sItemChecked">
+<!--                    <button onclick="deleteItemFromCart(this)">删除当前商品</button>-->
+<!--                    <label for="sItemChecked">勾选以结算</label>-->
+<!--                    <input type="checkbox" id="sItemChecked" name="sItemChecked">-->
                 </td>
+                <td><input type="checkbox" id="sItemChecked" name="sItemChecked"><label for="sItemChecked">勾选以结算</label></td>
             </tr>
         </table>
         <button onclick="uploadCart()">更新购物车内的物品和数量到服务器</button>
         <button onclick="updateFinalPrice()">点击更新勾选商品总价</button>
         <button onclick="submitOrder()">将勾选商品提交订单</button>
+        <button onclick="deleteItemFromCart(this)">删除当前商品</button>
         <h2>选中总价 <span id="finalPrice">0.00</span></h2>
 </div>
 </body>
