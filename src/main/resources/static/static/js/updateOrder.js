@@ -1,8 +1,8 @@
 //计算商品总价
 function updateFinalPrice() {
-    var tr = $("#itemTable").find("tr[id]");
+    var cartTableElem = $("#itemTable").find("tr[id]");
     var summer = 0;
-    tr.each(function(i, dom) {
+    cartTableElem.each(function(i, dom) {
         if($(dom).find("#sItemChecked").is(":checked")){
             var num = $(dom).find(".ItemNo").val(); //商品数量
             if(num < 1){
@@ -21,8 +21,8 @@ function submitOrder() {
 }
 //更新购物车
 function updateCart() {
-    var tr = $("#itemTable").find("tr[id]");
-    tr.each(function(i, dom) {
+    var cartTableElem = $("#itemTable").find("tr[id]");
+    cartTableElem.each(function(i, dom) {
         if($(dom).find("#sItemChecked").is(":checked")){
             var id = $(dom).find("#sItemID").val(); //商品ID
             var num = $(dom).find("#sItemNo").val(); //商品数量
@@ -47,8 +47,8 @@ function updateCart() {
 }
 //删除当前商品
 function deleteItemFromCart() {
-    var tr = $("#itemTable").find("tr[id]");
-    tr.each(function(i, dom) {
+    var cartTableElem = $("#itemTable").find("tr[id]");
+    cartTableElem.each(function(i, dom) {
         if($(dom).find("#sItemChecked").is(":checked")){
             var id = $(dom).find("#sItemID").val(); //商品ID
             var url = "/api/cart/delete?sItemID=" + id;
