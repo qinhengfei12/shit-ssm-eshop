@@ -16,5 +16,5 @@ public interface SysUserCartDao {
 
     int updateByUserId(SysUserCart record);
 
-    List<SysUserCart> selectByUserId(String uid);
+    SysUserCart selectByUserId(String uid);
 }

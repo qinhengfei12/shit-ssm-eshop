@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>当前用户订单查看</title>
@@ -25,17 +25,14 @@
         <td th:text="${#dates.format(order.genTime)}">生成时间</td>
         <td th:text="${#dates.format(order.paidTime)}">支付时间</td>
         <td th:text="${#dates.format(order.doneTime)}">完成时间</td>
-        <td><button th:data-name="${order.oid}" onclick="del(this.getAttribute('data-name'))" type="button">删除订单</button></td>
+        <td>
+            <form th:action="@{/api/user/order/{orderId}(orderId=${order.oid})}" method="post">
+                <input type="submit" value="删除">
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
-<script>
-    function del(orderid){
-        if(confirm("确认删除该订单吗?")==true){
-            window.location.href="delorder?orderId="+orderid;
-        }
-        return false;
-    }
-</script>
 </body>
 </html>
