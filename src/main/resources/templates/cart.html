@@ -58,7 +58,7 @@
                 <td><img th:src="${sItem.getCurrentItem().getImage()}"></td>
                 <td th:text="${sItem.getCurrentItem().getDescr()}"></td>
                 <td class="sPrice" th:text="${sItem.getCurrentItem().getPrice()}"></td>
-                <td>
+                <td >
                     <form class="sItemCartUpdateForm">
                         <input type="hidden" name="sItemID" id="sItemID" th:value="${sItem.getCurrentItem().getId()}">
                         <label for="sItemNo">当前数量</label>

@@ -2,11 +2,13 @@
 function updateFinalPrice() {
     var $tr = $("#itemTable").find("tr[id]");
     var summer = 0;
-    $tr.each(function (i, dom) {
-        var num = $(dom).children(".ItemNo").val(); //商品数量
-        var price = num * $(dom).children(".sPrice").text(); //商品小计
-        summer += price;
-    });
+    $tr.each(function(i, dom) {
+        if($(dom).find("#sItemChecked").is(":checked")){
+            var num = $(dom).find(".ItemNo").val(); //商品数量
+            var price = num * $(dom).find(".sPrice").text(); //商品小计
+            summer += price; //总价
+        }
+         });
     $("#finalPrice").text(summer);
 }
 //提交订单
