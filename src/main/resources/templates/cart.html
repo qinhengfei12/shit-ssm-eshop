@@ -59,14 +59,12 @@
                 <td th:text="${sItem.getCurrentItem().getDescr()}"></td>
                 <td class="sPrice" th:text="${sItem.getCurrentItem().getPrice()}"></td>
                 <td >
-                    <form class="sItemCartUpdateForm">
-                        <input type="hidden" name="sItemID" id="sItemID" th:value="${sItem.getCurrentItem().getId()}">
-                        <label for="sItemNo">当前数量</label>
-                        <input class="ItemNo" type="number" name="sItemNo" id="sItemNo" th:value="${sItem.getItemNum()}">
-                        <button onclick="deleteItemFromCart(this)">删除当前商品</button>
-                        <label for="sItemChecked">勾选以结算</label>
-                        <input type="checkbox" id="sItemChecked" name="sItemChecked">
-                    </form>
+                    <input type="hidden" name="sItemID" id="sItemID" th:value="${sItem.getCurrentItem().getId()}">
+                    <label for="sItemNo">当前数量</label>
+                    <input class="ItemNo" type="number" name="sItemNo" id="sItemNo" th:value="${sItem.getItemNum()}">
+                    <button onclick="deleteItemFromCart(this)">删除当前商品</button>
+                    <label for="sItemChecked">勾选以结算</label>
+                    <input type="checkbox" id="sItemChecked" name="sItemChecked">
                 </td>
             </tr>
         </table>

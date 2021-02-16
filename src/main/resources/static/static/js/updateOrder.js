@@ -21,6 +21,16 @@ function uploadCart() {
 }
 //删除当前商品
 function deleteItemFromCart() {
+    let ID = document.getElementById("sItemID").value;
+    var URL = "/api/cart/delete?sItemID=" + ID;
+    $.ajax({
+        type: "get",
+        url: URL,
+        data: "",
+        encode: true,
+    }).done(function(data){
+        alert(data.message);
+    })
 
 }
 
