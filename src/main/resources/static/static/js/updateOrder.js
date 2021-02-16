@@ -1,19 +1,19 @@
 //计算商品总价
 function updateFinalPrice() {
     var cartTableElem = $("#itemTable").find("tr[id]");
-    var summer = 0;
-    cartTableElem.each(function(index, element) {
-        if($(element).find("#sItemChecked").is(":checked")){
-            var num = $(element).find(".ItemNo").val(); //商品数量
-            if(num < 1){
+    var totalPrice = 0;
+    cartTableElem.each(function(cIndex, cElement) {
+        if($(cElement).find("#sItemChecked").is(":checked")){
+            var cNum = $(cElement).find(".ItemNo").val(); //商品数量
+            if(cNum < 1){
                 alert("请修改商品数量！");
             }else{
-                var price = num * $(element).find(".sPrice").text(); //商品小计
-                summer += price; //总价
+                var singlePrice = cNum * $(cElement).find(".sPrice").text(); //商品小计
+                totalPrice += singlePrice; //总价
             }
         }
     });
-    $("#finalPrice").text(summer);
+    $("#finalPrice").text(totalPrice);
 }
 //提交订单
 function submitOrder() {
@@ -22,22 +22,22 @@ function submitOrder() {
 //更新购物车
 function updateCart() {
     var cartTableElem = $("#itemTable").find("tr[id]");
-    cartTableElem.each(function(index, element) {
-        if($(element).find("#sItemChecked").is(":checked")){
-            var id = $(element).find("#sItemID").val(); //商品ID
-            var num = $(element).find("#sItemNo").val(); //商品数量
-            if(num < 1){
-                alert("请修改商品数量！");
+    cartTableElem.each(function(cIndex, cElement) {
+        if($(cElement).find("#sItemChecked").is(":checked")){
+            var cElemId = $(cElement).find("#sItemID").val(); //商品ID
+            var cElemNum = $(cElement).find("#sItemNo").val(); //商品数量
+            if(cElemNum < 1){
+                alert("请修改商品数量！");    // check number on the backend
             }else {
-                var formData = {"id":id,"num":num};
+                var formData = {"id":cElemId,"num":cElemNum};
                 $.ajax({
                     type: "post",
                     url: "/api/cart/update",
                     data: formData,
                     dataType: "json",
                     encode: true,
-                }).done(function(data){
-                    alert(data.message);
+                }).done(function(respData){
+                    alert(respData.message);
                 }).fail(function(){
                     alert("更新购物车失败!");
                 })
@@ -48,17 +48,17 @@ function updateCart() {
 //删除当前商品
 function deleteItemFromCart() {
     var cartTableElem = $("#itemTable").find("tr[id]");
-    cartTableElem.each(function(index, element) {
-        if($(element).find("#sItemChecked").is(":checked")){
-            var id = $(element).find("#sItemID").val(); //商品ID
-            var currentItemUrl = "/api/cart/delete?sItemID=" + id;
+    cartTableElem.each(function(cIndex, cElement) {
+        if($(cElement).find("#sItemChecked").is(":checked")){
+            var cElemId = $(cElement).find("#sItemID").val(); //商品ID
+            var cItemUrl = "/api/cart/delete?sItemID=" + id;
             $.ajax({
                 type: "get",
-                url: currentItemUrl,
+                url: cItemUrl,
                 data: "",
                 encode: true,
-            }).done(function(data){
-                alert(data.message);
+            }).done(function(respData){
+                alert(respData.message);
             }).fail(function(){
                 alert("删除商品失败!");
             })
