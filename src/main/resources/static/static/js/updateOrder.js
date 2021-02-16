@@ -2,13 +2,13 @@
 function updateFinalPrice() {
     var cartTableElem = $("#itemTable").find("tr[id]");
     var summer = 0;
-    cartTableElem.each(function(i, dom) {
-        if($(dom).find("#sItemChecked").is(":checked")){
-            var num = $(dom).find(".ItemNo").val(); //商品数量
+    cartTableElem.each(function(index, element) {
+        if($(element).find("#sItemChecked").is(":checked")){
+            var num = $(element).find(".ItemNo").val(); //商品数量
             if(num < 1){
                 alert("请修改商品数量！");
             }else{
-                var price = num * $(dom).find(".sPrice").text(); //商品小计
+                var price = num * $(element).find(".sPrice").text(); //商品小计
                 summer += price; //总价
             }
         }
@@ -22,10 +22,10 @@ function submitOrder() {
 //更新购物车
 function updateCart() {
     var cartTableElem = $("#itemTable").find("tr[id]");
-    cartTableElem.each(function(i, dom) {
-        if($(dom).find("#sItemChecked").is(":checked")){
-            var id = $(dom).find("#sItemID").val(); //商品ID
-            var num = $(dom).find("#sItemNo").val(); //商品数量
+    cartTableElem.each(function(index, element) {
+        if($(element).find("#sItemChecked").is(":checked")){
+            var id = $(element).find("#sItemID").val(); //商品ID
+            var num = $(element).find("#sItemNo").val(); //商品数量
             if(num < 1){
                 alert("请修改商品数量！");
             }else {
@@ -48,13 +48,13 @@ function updateCart() {
 //删除当前商品
 function deleteItemFromCart() {
     var cartTableElem = $("#itemTable").find("tr[id]");
-    cartTableElem.each(function(i, dom) {
-        if($(dom).find("#sItemChecked").is(":checked")){
-            var id = $(dom).find("#sItemID").val(); //商品ID
-            var url = "/api/cart/delete?sItemID=" + id;
+    cartTableElem.each(function(index, element) {
+        if($(element).find("#sItemChecked").is(":checked")){
+            var id = $(element).find("#sItemID").val(); //商品ID
+            var currentItemUrl = "/api/cart/delete?sItemID=" + id;
             $.ajax({
                 type: "get",
-                url: url,
+                url: currentItemUrl,
                 data: "",
                 encode: true,
             }).done(function(data){
