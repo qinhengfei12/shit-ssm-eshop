@@ -32,12 +32,12 @@ function updateCart() {
                 var formData = {"id":cElemId,"num":cElemNum};
                 $.ajax({
                     type: "post",
-                    url: "/api/cart/update",
+                    url: "/api/cart",
                     data: formData,
                     dataType: "json",
                     encode: true,
-                }).done(function(respdata){
-                    alert(respdata.message);
+                }).done(function(respData){
+                    alert(respData.message);
                 }).fail(function(){
                     alert("更新购物车失败!");
                 })
@@ -51,14 +51,14 @@ function deleteItemFromCart() {
     cartTableElem.each(function(cIndex, cElement) {
         if($(cElement).find("#sItemChecked").is(":checked")){
             var cElemId = $(cElement).find("#sItemID").val(); //商品ID
-            var cItemUrl = "/api/cart/delete?sItemId=" + cElemId;
+            var cItemUrl = "/api/cart?sItemId=" + cElemId;
             $.ajax({
                 type: "delete",
                 url: cItemUrl,
                 data: "",
                 encode: true,
-            }).done(function(respdata){
-                alert(respdata.message);
+            }).done(function(respData){
+                alert(respData.message);
             }).fail(function(){
                 alert("删除商品失败!");
             })
