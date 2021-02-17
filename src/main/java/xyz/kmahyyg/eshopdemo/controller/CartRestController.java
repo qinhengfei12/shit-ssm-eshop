@@ -46,8 +46,8 @@ public class CartRestController {
         int ItemId;
         int ItemNum;
         try {
-            ItemId = Integer.parseInt(request.getParameter("ItemId"));
-            ItemNum = Integer.parseInt(request.getParameter("ItemNum"));
+            ItemId = Integer.parseInt(request.getParameter("itemId"));
+            ItemNum = Integer.parseInt(request.getParameter("itemNum"));
         }catch (NumberFormatException e){
             pr.setStatus(4);
             pr.setMessage("Please submit valid data!");
