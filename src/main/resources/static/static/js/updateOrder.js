@@ -40,8 +40,8 @@ function submitOrder() {
         data: JSON.stringify(postItemData),
     }).done(function (respData) {
         alert(respData.message);
-    }).fail(function () {
-        alert("提交订单失败!");
+    }).fail(function (respData) {
+        alert(respData.message);
     })
 }
 //更新购物车
@@ -63,12 +63,13 @@ function updateCart() {
                     encode: true,
                 }).done(function(respData){
                     alert(respData.message);
-                }).fail(function(){
-                    alert("更新购物车失败!");
+                }).fail(function(respData){
+                    alert(respData.message);
                 })
             }
         }
     });
+    window.location.reload();
 }
 //删除当前商品
 function deleteItemFromCart() {
@@ -84,12 +85,12 @@ function deleteItemFromCart() {
                 encode: true,
             }).done(function(respData){
                 alert(respData.message);
-            }).fail(function(){
-                alert("删除商品失败!");
+            }).fail(function(respData){
+                alert(respData.message);
             })
-
         }
     });
+    window.location.reload();
 }
 
 
