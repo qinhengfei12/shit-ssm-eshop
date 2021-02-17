@@ -32,7 +32,7 @@ public class CartRestController {
 
 
     @PostMapping("/user/cart")
-    public ResponseEntity<Object> cart(HttpServletRequest request){
+    public ResponseEntity<Object> updateUserCartFromReq(HttpServletRequest request){
         PublicResponse pr = new PublicResponse(0,"Ok");
         String CurrentUserid = userInfoUtil.getCurrentUserID();
         //由于在注册的时候每个用户都有一个空的购物车，所以只需要更新items即可，不需要插入
