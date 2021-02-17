@@ -57,7 +57,7 @@ function updateCart() {
                 var formData = {"id":cElemId,"num":cElemNum};
                 $.ajax({
                     type: "post",
-                    url: "/api/cart",
+                    url: "/api/user/cart",
                     data: formData,
                     dataType: "json",
                     encode: true,
@@ -77,7 +77,7 @@ function deleteItemFromCart() {
     cartTableElem.each(function(cIndex, cElement) {
         if($(cElement).find("#sItemChecked").is(":checked")){
             var cElemId = $(cElement).find("#sItemID").val(); //商品ID
-            var cItemUrl = "/api/cart?sItemId=" + cElemId;
+            var cItemUrl = "/api/user/cart?sItemId=" + cElemId;
             $.ajax({
                 type: "delete",
                 url: cItemUrl,

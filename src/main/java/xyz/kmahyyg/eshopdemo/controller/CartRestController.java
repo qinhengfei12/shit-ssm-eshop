@@ -31,7 +31,7 @@ public class CartRestController {
     private UserInfoUtil userInfoUtil;
 
 
-    @PostMapping("/cart")
+    @PostMapping("/user/cart")
     public ResponseEntity<Object> cart(HttpServletRequest request){
         PublicResponse pr = new PublicResponse(0,"Ok");
         String CurrentUserid = userInfoUtil.getCurrentUserID();
@@ -50,7 +50,7 @@ public class CartRestController {
             ItemNum = Integer.parseInt(request.getParameter("ItemNum"));
         }catch (NumberFormatException e){
             pr.setStatus(4);
-            pr.setMessage("NumberFormatException!Please submit int type data!");
+            pr.setMessage("Please submit valid data!");
             return new ResponseEntity<>(pr,HttpStatus.BAD_REQUEST);
         }
 
