@@ -32,117 +32,98 @@ public class CartRestController {
 
 
     @PostMapping("/user/cart")
-    public ResponseEntity<Object> updateUserCartFromReq(HttpServletRequest request){
-        PublicResponse pr = new PublicResponse(0,"Ok");
-        String CurrentUserid = userInfoUtil.getCurrentUserID();
+    public ResponseEntity<Object> updateUserCartFromReq(HttpServletRequest request) {
+        PublicResponse pr = new PublicResponse(0, "Ok");
+        String currentUserID = userInfoUtil.getCurrentUserID();
         //由于在注册的时候每个用户都有一个空的购物车，所以只需要更新items即可，不需要插入
         //获取数据库中的当前用户的购物车信息
-        SysUserCart CurrentCart = sysUserCartDao.selectByUserId(CurrentUserid);
+        SysUserCart currentCart = sysUserCartDao.selectByUserId(currentUserID);
         //获取CurrentCart中的items字段
-        SingleUserCart CurrentItems = CurrentCart.getItems();
-        List<SingleItemInCart> CurrentItemsList = CurrentItems.getCart();
+        SingleUserCart currentItems = currentCart.getItems();
+        List<SingleItemInCart> currentItemsList = currentItems.getCart();
 
         //处理获取到的数据
-        int ItemId;
-        int ItemNum;
+        int newItemId;
+        int newItemNum;
         try {
-            ItemId = Integer.parseInt(request.getParameter("itemId"));
-            ItemNum = Integer.parseInt(request.getParameter("itemNum"));
-        }catch (NumberFormatException e){
+            newItemId = Integer.parseInt(request.getParameter("itemId"));
+            newItemNum = Integer.parseInt(request.getParameter("itemNum"));
+            if (newItemNum <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
             pr.setStatus(4);
             pr.setMessage("Please submit valid data!");
-            return new ResponseEntity<>(pr,HttpStatus.BAD_REQUEST);
+            e.printStackTrace();   // must print stacktrace for debugging purpose
+            return new ResponseEntity<>(pr, HttpStatus.BAD_REQUEST);
         }
 
-        if (sysItemsDao.selectById(ItemId) == null){
+        if (sysItemsDao.selectById(newItemId) == null) {
+            // the item id uploaded by user is not existing in database
             pr.setStatus(5);
-            pr.setMessage("ItemId not exist!");
-            return new ResponseEntity<>(pr,HttpStatus.BAD_REQUEST);
+            pr.setMessage("Please submit valid data!");  // unify the error message to avoid hacker
+            return new ResponseEntity<>(pr, HttpStatus.BAD_REQUEST);
         }
 
-        if (CurrentItemsList.size() == 0){
-            if (ItemNum>0){
-
-                //更新购物车
-                SingleItemInCart NewItem = new SingleItemInCart();
-                NewItem.setItemId(ItemId);
-                NewItem.setItemNum(ItemNum);
-                //以上是新的商品信息
-
-                CurrentItemsList.add(NewItem);
-                SingleUserCart NewItems = new SingleUserCart();
-                NewItems.setCart(CurrentItemsList);
-                SysUserCart NewCart = new SysUserCart();
-                NewCart.setItems(NewItems);
-                NewCart.setUid(CurrentUserid);
-                sysUserCartDao.updateByUserId(NewCart);
-                pr.setStatus(0);
-                pr.setMessage("ok");
-                return new ResponseEntity<>(pr,HttpStatus.OK);
+        // the cart of current user is empty, directly update without checking existing items
+        if (currentItemsList.size() == 0) {
+            // build a new item
+            SingleItemInCart NewItem = new SingleItemInCart();
+            NewItem.setItemId(newItemId);
+            NewItem.setItemNum(newItemNum);
+            // directly insert
+            currentItemsList.add(NewItem);
+            currentItems.setCart(currentItemsList);
+            currentCart.setItems(currentItems);
+            sysUserCartDao.updateByUserId(currentCart);
+            return new ResponseEntity<>(pr, HttpStatus.OK);
+        } else {
+            // current user's cart is not empty.
+            //
+            // build a flag for check if new item is parsed.
+            // flag removed due to early return.
+            // boolean newItemParsed = false;
+            //
+            for (SingleItemInCart currentItemInCart : currentItemsList) {
+                // check if updated item already in the cart
+                if (currentItemInCart.getItemId() == newItemId) {
+                    //
+                    // flag removed due to early return
+                    // set flag to avoid useless loop
+                    // newItemParsed = true;
+                    //
+                    // if already in cart, just change the value
+                    // there will never be something in cart but with zero num.
+                    currentItemInCart.setItemNum(newItemNum);
+                    if (sysUserCartDao.updateByUserId(currentCart) == 1) {
+                        return new ResponseEntity<>(pr, HttpStatus.OK);
+                    } else {
+                        pr.setStatus(3);
+                        pr.setMessage("Internal Error Occurred!");
+                        return new ResponseEntity<>(pr, HttpStatus.INTERNAL_SERVER_ERROR);
+                    }
+                    // To Remove the specific item, use DELETE method instead of POST.
+                }
             }
-            else {
+            // after for loop, if new item processed, it will not reach here, so
+            // no need to use if here
+            //
+            // the updated item is NOT in the current user's cart
+            // but current user's cart is not empty
+            // build a new item
+            SingleItemInCart newItemInCart = new SingleItemInCart();
+            newItemInCart.setItemId(newItemId);
+            newItemInCart.setItemNum(newItemNum);
+            currentItemsList.add(newItemInCart);
+            currentItems.setCart(currentItemsList);
+            currentCart.setItems(currentItems);
+            if (sysUserCartDao.updateByUserId(currentCart) == 1) {
+                return new ResponseEntity<>(pr, HttpStatus.OK);
+            } else {
                 pr.setStatus(3);
-                pr.setMessage("Illegal data!");
-                return new ResponseEntity<>(pr,HttpStatus.BAD_REQUEST);
-
+                pr.setMessage("Internal Error Occurred!");
+                return new ResponseEntity<>(pr, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-        else {
-            for (int i=0;i<CurrentItemsList.size();i++){
-                SingleItemInCart CurrentItem = CurrentItemsList.get(i);
-                if (CurrentItem.getItemId() == ItemId){
-                    int NewItemNum = CurrentItem.getItemNum() + ItemNum;
-                    if (NewItemNum>0){
-                        CurrentItem.setItemNum(NewItemNum);
-                        sysUserCartDao.updateByUserId(CurrentCart);
-                        pr.setStatus(0);
-                        pr.setMessage("ok");
-                        return new ResponseEntity<>(pr,HttpStatus.OK);
-                    }
-                    else {
-                        if (NewItemNum==0){
-                            CurrentItemsList.remove(i);
-                            sysUserCartDao.updateByUserId(CurrentCart);
-                            pr.setStatus(0);
-                            pr.setMessage("ok");
-                            return new ResponseEntity<>(pr,HttpStatus.OK);
-                        }
-                        else {
-                            pr.setStatus(2);
-                            pr.setMessage("Illegal data!");
-                            return new ResponseEntity<>(pr,HttpStatus.BAD_REQUEST);
-                        }
-                    }
-
-                }
-                else {
-                    if (i==CurrentItemsList.size()-1){
-                        if (ItemNum>0){
-                            SingleItemInCart NewItem = new SingleItemInCart();
-                            NewItem.setItemId(ItemId);
-                            NewItem.setItemNum(ItemNum);
-                            //以上是新的商品信息
-
-                            CurrentItemsList.add(NewItem);
-                            SingleUserCart NewItems = new SingleUserCart();
-                            NewItems.setCart(CurrentItemsList);
-                            SysUserCart NewCart = new SysUserCart();
-                            NewCart.setItems(NewItems);
-                            NewCart.setUid(CurrentUserid);
-                            sysUserCartDao.updateByUserId(NewCart);
-                            pr.setStatus(0);
-                            pr.setMessage("ok");
-                            return new ResponseEntity<>(pr,HttpStatus.OK);
-                        }
-                        else {
-                            pr.setStatus(2);
-                            pr.setMessage("Illegal data!");
-                            return new ResponseEntity<>(pr,HttpStatus.BAD_REQUEST);
-                        }
-                    }
-                }
-            }
-        }
-        return new ResponseEntity<>(pr,HttpStatus.OK);
     }
 }
