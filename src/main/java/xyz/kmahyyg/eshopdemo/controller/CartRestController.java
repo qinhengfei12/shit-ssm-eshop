@@ -75,9 +75,8 @@ public class CartRestController {
                 SysUserCart NewCart = new SysUserCart();
                 NewCart.setItems(NewItems);
                 NewCart.setUid(CurrentUserid);
-                NewCart.setId(ItemId);
                 sysUserCartDao.updateByUserId(NewCart);
-                pr.setStatus(1);
+                pr.setStatus(0);
                 pr.setMessage("ok");
                 return new ResponseEntity<>(pr,HttpStatus.OK);
             }
@@ -96,7 +95,7 @@ public class CartRestController {
                     if (NewItemNum>0){
                         CurrentItem.setItemNum(NewItemNum);
                         sysUserCartDao.updateByUserId(CurrentCart);
-                        pr.setStatus(1);
+                        pr.setStatus(0);
                         pr.setMessage("ok");
                         return new ResponseEntity<>(pr,HttpStatus.OK);
                     }
@@ -104,7 +103,7 @@ public class CartRestController {
                         if (NewItemNum==0){
                             CurrentItemsList.remove(i);
                             sysUserCartDao.updateByUserId(CurrentCart);
-                            pr.setStatus(1);
+                            pr.setStatus(0);
                             pr.setMessage("ok");
                             return new ResponseEntity<>(pr,HttpStatus.OK);
                         }
@@ -130,9 +129,8 @@ public class CartRestController {
                             SysUserCart NewCart = new SysUserCart();
                             NewCart.setItems(NewItems);
                             NewCart.setUid(CurrentUserid);
-                            NewCart.setId(ItemId);
                             sysUserCartDao.updateByUserId(NewCart);
-                            pr.setStatus(1);
+                            pr.setStatus(0);
                             pr.setMessage("ok");
                             return new ResponseEntity<>(pr,HttpStatus.OK);
                         }
@@ -148,5 +146,3 @@ public class CartRestController {
         return new ResponseEntity<>(pr,HttpStatus.OK);
     }
 }
-
-
