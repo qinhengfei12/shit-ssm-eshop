@@ -3,17 +3,15 @@ package xyz.kmahyyg.eshopdemo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import xyz.kmahyyg.eshopdemo.dao.SysItemsDao;
 import xyz.kmahyyg.eshopdemo.dao.SysOrdersDao;
-import xyz.kmahyyg.eshopdemo.dao.SysUsersDao;
 import xyz.kmahyyg.eshopdemo.enums.OrderStatusEnum;
 import xyz.kmahyyg.eshopdemo.model.SysItems;
 import xyz.kmahyyg.eshopdemo.model.SysOrders;
-import xyz.kmahyyg.eshopdemo.security.UserInfo;
+import xyz.kmahyyg.eshopdemo.utils.UserInfoUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
@@ -25,11 +23,11 @@ public class OrderController {
     private SysOrdersDao sysOrdersDao;
 
     @Autowired
-    private SysUsersDao sysUsersDao;
-
+    private SysItemsDao sysItemsDao;
 
     @Autowired
-    private SysItemsDao sysItemsDao;
+    private UserInfoUtil userInfoUtil;
+
 
 
     /**
@@ -39,15 +37,11 @@ public class OrderController {
      */
     @GetMapping("/show/user/order")
     public String showOrderOfCurrentUser(Model model) {
-        UserInfo currentUser = (UserInfo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (currentUser != null) {
-            String currentUsername = currentUser.getUsername();
-            if (!currentUsername.isEmpty()){
-                String currentUserUid = sysUsersDao.selectByUserName(currentUsername).getUid();
+        String currentUserUid = userInfoUtil.getCurrentUserID();
+            if (!currentUserUid.isEmpty()){
                 List<SysOrders> allOrdersByUser = sysOrdersDao.selectByUserId(currentUserUid);
                 model.addAttribute("orders",allOrdersByUser);
             }
-        }
         return "userorders";
     }
 
@@ -57,11 +51,8 @@ public class OrderController {
     public class orderController {
         @PostMapping("/order")
         public String addOrder(@RequestBody String jsonParam) throws Exception {
-            UserInfo currentUser = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (currentUser != null) {
-                String currentUsername = currentUser.getUsername();
-                if (!currentUsername.isEmpty()) {
-                    String currentUserUid = sysUsersDao.selectByUserName(currentUsername).getUid();
+            String currentUserUid = userInfoUtil.getCurrentUserID();
+                if (!currentUserUid.isEmpty()) {
                     SysOrders record = new SysOrders();
                     record.setOid(UUID.randomUUID().toString());
                     record.setStatus(OrderStatusEnum.CREATED);
@@ -86,7 +77,6 @@ public class OrderController {
                     record.setDeliveryId(1);
                     sysOrdersDao.insert(record);
                 }
-            }
             return "OK";
         }
 
