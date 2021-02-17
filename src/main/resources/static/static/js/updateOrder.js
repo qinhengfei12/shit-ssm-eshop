@@ -17,7 +17,32 @@ function updateFinalPrice() {
 }
 //提交订单
 function submitOrder() {
-
+    var saveDataArray = [];
+    var cartTableElem = $("#itemTable").find("tr[id]");
+    cartTableElem.each(function(cIndex, cElement) {
+        if($(cElement).find("#sItemChecked").is(":checked")){
+            var cElemId= $(cElement).find("#sItemID").val(); //商品ID
+            var cElemNum = $(cElement).find("#sItemNo").val(); //商品数量
+            if(cElemNum < 1){
+                alert("请修改商品数量!");
+            }else{
+                var itemData = {"itemId":cElemId,"itemNo":cElemNum};
+                saveDataArray.push(itemData);
+            }
+        }
+    });
+    var postItemData = {"items":saveDataArray};
+    $.ajax({
+        type: "post",
+        url: "/api/user/order",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(postItemData),
+    }).done(function (respData) {
+        alert(respData.message);
+    }).fail(function () {
+        alert("提交订单失败!");
+    })
 }
 //更新购物车
 function updateCart() {
