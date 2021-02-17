@@ -26,7 +26,7 @@ function submitOrder() {
             if(cElemNum < 1){
                 alert("请修改商品数量!");
             }else{
-                var itemData = {"itemId":cElemId,"itemNo":cElemNum};
+                var itemData = {"itemId":cElemId,"itemNum":cElemNum};
                 saveDataArray.push(itemData);
             }
         }
@@ -54,7 +54,7 @@ function updateCart() {
             if(cElemNum < 1){
                 alert("请修改商品数量！");
             }else {
-                var formData = {"id":cElemId,"num":cElemNum};
+                var formData = {"itemId":cElemId,"itemNum":cElemNum};
                 $.ajax({
                     type: "post",
                     url: "/api/user/cart",
@@ -77,7 +77,7 @@ function deleteItemFromCart() {
     cartTableElem.each(function(cIndex, cElement) {
         if($(cElement).find("#sItemChecked").is(":checked")){
             var cElemId = $(cElement).find("#sItemID").val(); //商品ID
-            var cItemUrl = "/api/user/cart?sItemId=" + cElemId;
+            var cItemUrl = "/api/user/cart?itemId=" + cElemId;
             $.ajax({
                 type: "delete",
                 url: cItemUrl,
