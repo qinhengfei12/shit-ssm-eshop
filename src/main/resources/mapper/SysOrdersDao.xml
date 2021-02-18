@@ -27,7 +27,7 @@
         `uid`, finalPrice, genTime,
         paidTime, doneTime, refundTime,
         paymentId, deliveryId)
-        values (#{oid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{items,jdbcType=VARCHAR},
+        values (#{oid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{items,jdbcType=VARCHAR},
         #{uid,jdbcType=VARCHAR}, #{finalPrice,jdbcType=DECIMAL}, #{genTime,jdbcType=BIGINT},
         #{paidTime,jdbcType=BIGINT}, #{doneTime,jdbcType=BIGINT}, #{refundTime,jdbcType=BIGINT},
         #{paymentId,jdbcType=INTEGER}, #{deliveryId,jdbcType=INTEGER})

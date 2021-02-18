@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>当前用户订单查看</title>
 </head>
 <body>
-写个前端吧
+<table>
+    <thead>
+    <tr>
+        <th class="am-hide-sm-only">订单id</th>
+        <th>订单状态</th>
+        <th>订单价格</th>
+        <th class="am-hide-sm-only">生成时间</th>
+        <th class="am-hide-sm-only">支付时间</th>
+        <th class="am-hide-sm-only">完成时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.oid}">订单id</td>
+        <td th:text="${order.status}">订单状态</td>
+        <td th:text="${order.finalPrice}">订单价格</td>
+        <td th:text="${#dates.format(order.genTime)}">生成时间</td>
+        <td th:text="${#dates.format(order.paidTime)}">支付时间</td>
+        <td th:text="${#dates.format(order.doneTime)}">完成时间</td>
+        <td>
+            <form th:action="@{/api/user/order/{orderId}(orderId=${order.oid})}" method="post">
+                <input type="submit" value="删除">
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
