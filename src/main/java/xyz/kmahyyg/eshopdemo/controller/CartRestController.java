@@ -3,6 +3,7 @@ package xyz.kmahyyg.eshopdemo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -125,5 +126,44 @@ public class CartRestController {
                 return new ResponseEntity<>(pr, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+    }
+
+    @DeleteMapping("/cart")
+    public ResponseEntity<Object> deleteUserCartItem(HttpServletRequest request){
+        PublicResponse pr = new PublicResponse(0, "success");
+        try{
+            int toDeleteItemId = Integer.parseInt(request.getParameter("itemId"));
+            String currentUserUid = userInfoUtil.getCurrentUserID();
+            if(!currentUserUid.isEmpty()){
+                SysUserCart userCart = sysUserCartDao.selectByUserId(currentUserUid);
+                SingleUserCart cartLst = userCart.getItems();
+                List<SingleItemInCart> itemsInCart = cartLst.getCart();
+                if (itemsInCart.size() == 0) {throw new NumberFormatException();}
+                for(SingleItemInCart currentItem: itemsInCart){
+                    int currentItemId = currentItem.getItemId();
+                    if(currentItemId == toDeleteItemId){
+                        itemsInCart.remove(currentItem);
+                        cartLst.setCart(itemsInCart);
+                        userCart.setItems(cartLst);
+                        if(sysUserCartDao.updateByUserId(userCart) == 1){
+                            pr.setMessage("Item Delete Success!");
+                            return new ResponseEntity<>(pr, HttpStatus.OK);
+                        }else{
+                            pr.setStatus(3);
+                            pr.setMessage("Internal Error Occurred!");
+                            return new ResponseEntity<>(pr, HttpStatus.INTERNAL_SERVER_ERROR);
+                        }
+                    }
+                }
+            }
+        }catch(NumberFormatException e){
+            pr.setStatus(4);
+            pr.setMessage("Invalid Data!");
+            e.printStackTrace();
+            return new ResponseEntity<>(pr, HttpStatus.BAD_REQUEST);
+        }
+        pr.setStatus(4);
+        pr.setMessage("Invalid Data!");
+        return new ResponseEntity<>(pr, HttpStatus.BAD_REQUEST);
     }
 }
