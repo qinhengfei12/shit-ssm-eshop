@@ -128,7 +128,7 @@ public class CartRestController {
         }
     }
 
-    @DeleteMapping("/cart")
+    @DeleteMapping("/user/cart")
     public ResponseEntity<Object> deleteUserCartItem(HttpServletRequest request){
         PublicResponse pr = new PublicResponse(0, "success");
         try{
