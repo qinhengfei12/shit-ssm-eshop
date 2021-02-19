@@ -19,16 +19,19 @@
     </thead>
     <tbody>
     <tr th:each="order : ${orders}">
-        <td th:text="${order.oid}">订单id</td>
-        <td th:text="${order.status}">订单状态</td>
-        <td th:text="${order.finalPrice}">订单价格</td>
-        <td th:text="${#dates.format(order.genTime)}">生成时间</td>
-        <td th:text="${#dates.format(order.paidTime)}">支付时间</td>
-        <td th:text="${#dates.format(order.doneTime)}">完成时间</td>
+        <td th:text="${order.oid}"></td>
+        <td th:text="${order.status}"></td>
+        <td th:text="${order.finalPrice}"></td>
+        <td th:text="${#dates.format(order.genTime)}"></td>
+        <td th:text="${#dates.format(order.paidTime)}"></td>
+        <td th:text="${#dates.format(order.doneTime)}"></td>
         <td>
             <form th:action="@{/api/user/order/{orderId}(orderId=${order.oid})}" method="post">
                 <input type="submit" value="删除">
                 <input type="hidden" name="_method" value="DELETE">
+            </form>
+            <form th:action="@{/show/order/{orderId}(orderId=${order.oid})}">
+                <input type="submit" value="查看详情">
             </form>
         </td>
     </tr>
