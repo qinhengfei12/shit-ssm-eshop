@@ -2,6 +2,7 @@ package xyz.kmahyyg.eshopdemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,8 @@ public class userInfoController {
     @PostMapping ("/api/user/change")
     public String userChange(@RequestParam("changeName") String changeName,
                              @RequestParam("changePhone") String changePhone,
-                             @RequestParam("changeAddr") String changeAddr) {
+                             @RequestParam("changeAddr") String changeAddr,
+                             RedirectAttributes redirectAttributes) {
         SysUsers userSysUsersDao = sysUsersDao.selectByUserId(userInfoUtil.getCurrentUserID());
         if (!changeName.isEmpty()){
             userSysUsersDao.setUsername(changeName);
@@ -53,7 +55,7 @@ public class userInfoController {
             System.out.println(userSysUsersDao.toString());
 
         if (sysUsersDao.updateByUserIdSelective(userSysUsersDao) == 1){
-            System.out.println("69999999");
+            redirectAttributes.addFlashAttribute("change", "Info changed successfully !");
         }
 
 
