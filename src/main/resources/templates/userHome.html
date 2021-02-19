@@ -1,0 +1,64 @@
+<!--suppress ALL -->
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<h1>user Home</h1>
+<a href="/">首页 </a><br>
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/api/user/imgUpload">
+        <table>
+            <tr><td>Image file to upload:</td><td><input type="file" name="file" accept="image/*"/></td></tr>
+            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+        </table>
+    </form>
+</div>
+
+<div th:if="${message2}">
+    <h5 th:text="${message2}"/>
+</div>
+<div th:if="${imgPath}">
+    <img th:src="${imgPath}" style="width:100px; height: 100px;"/>
+</div>
+<a href="/show/user/info">userInfo </a>
+<table border="6">
+    <caption>User info</caption>
+    <tr>
+        <td>username</td>
+        <td>phone</td>
+        <td>addr</td>
+    </tr>
+    <tr>
+        <td>
+            <div th:if="${username}">
+                <h5 th:text="${username}"/>
+            </div>
+        </td>
+        <td>
+            <div th:if="${phone}">
+            <h5 th:text="${phone}"/>
+        </div>
+        </td>
+        <td>
+            <div th:if="${addr}">
+            <h5 th:text="${addr}"/>
+        </div>
+        </td>
+    </tr>
+</table>
+<!--用户修改-->
+<h5>用户信息修改，修改用户名，手机号，地址</h5>
+<form action="/api/user/change" method="post">
+    rename:<br>
+    <input type="text" name="rename">
+    <br>
+    rephone:<br>
+    <input type="text" name="rephone">
+    <br>
+    readdr:<br>
+    <input type="text" name="readdr">
+    <br>
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

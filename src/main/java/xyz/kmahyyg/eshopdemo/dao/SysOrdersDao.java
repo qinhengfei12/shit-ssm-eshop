@@ -1,6 +1,7 @@
 package xyz.kmahyyg.eshopdemo.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import xyz.kmahyyg.eshopdemo.model.SysOrders;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * @Entity xyz.kmahyyg.eshopdemo.model.SysOrders
  */
+
 @Mapper
 public interface SysOrdersDao {
     int deleteOrderByOid(String oid);

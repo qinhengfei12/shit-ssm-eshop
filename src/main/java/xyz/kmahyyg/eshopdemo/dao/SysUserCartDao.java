@@ -7,6 +7,7 @@ import xyz.kmahyyg.eshopdemo.model.SysUserCart;
 /**
  * @Entity xyz.kmahyyg.eshopdemo.model.SysUserCart
  */
+
 @Mapper
 public interface SysUserCartDao {
     int deleteByUserId(String uid);

@@ -16,7 +16,7 @@ public interface SysItemsDao {
 
     int insert(SysItems record);
 
-    List<SysItems> selectByCateId(Integer cid);
+    List<SysItems> selectByCateId(int cid);
 
     List<SysItems> selectByShopOwnerId(String shopOwnerId);
 
