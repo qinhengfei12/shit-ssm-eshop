@@ -3,19 +3,18 @@ server.error.whitelabel.enabled=false
 
 ## For Dev Only
 #spring.datasource.driver-class-name=org.h2.Driver
-#spring.datasource.url=jdbc:h2:mem:
-#spring.datasource.data-username=
-#spring.datasource.data-password=
+#spring.datasource.url=jdbc:h2:mem:shopdb
+#spring.datasource.data-username=sa
+#spring.datasource.data-password=password
 spring.h2.console.enabled=false
 
 
 ## Use MariaDB in production
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-spring.datasource.url=jdbc:mariadb://
-spring.datasource.sql-script-encoding=UTF-8
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/projacc_shopdb
 ### You should .gitignore or mask the following values to avoid data leaking
-spring.datasource.username=
-spring.datasource.password=
+spring.datasource.username=root
+spring.datasource.password=root
 mybatis.mapper-locations=classpath:mapper/*Dao.xml
 
 # Debug Logging
@@ -24,12 +23,12 @@ mybatis.mapper-locations=classpath:mapper/*Dao.xml
 ## Use Redis to Control Authentication Attempts
 spring.redis.host=127.0.0.1
 spring.redis.port=6379
-spring.redis.database=
+spring.redis.database=58
 
 ## Spring Session Configuration
 spring.session.store-type=redis
 spring.session.timeout=900
 
-## Issue 10: Allow Special HTTP Method to be used in form
-spring.mvc.hiddenmethod.filter.enabled=true
-
+##File size limit
+spring.servlet.multipart.max-file-size=128KB
+spring.servlet.multipart.max-request-size=128KB

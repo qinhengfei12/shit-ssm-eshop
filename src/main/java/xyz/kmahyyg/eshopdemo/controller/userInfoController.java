@@ -53,7 +53,7 @@ public class userInfoController {
             System.out.println(userSysUsersDao.toString());
 
         if (sysUsersDao.updateByUserIdSelective(userSysUsersDao) == 1){
-            System.out.println("ppppppppppp");
+            System.out.println("77777");
         }
 
 
