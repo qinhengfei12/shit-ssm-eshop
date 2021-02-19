@@ -51,7 +51,7 @@ public class UploadImgSecurity {
     }
     public static boolean sizeCheck (MultipartFile file){
         long fileSize =  file.getSize();
-        long st = 131072;
+        long st = 524288;
         return fileSize <= st;
     }
     public static boolean imgCheck(MultipartFile file) throws IOException {
