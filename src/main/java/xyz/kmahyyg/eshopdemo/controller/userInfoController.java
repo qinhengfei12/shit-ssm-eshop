@@ -52,10 +52,8 @@ public class userInfoController {
         }
             System.out.println(userSysUsersDao.toString());
 
-
-        int ppp = sysUsersDao.updateByUserIdSelective(userSysUsersDao);
-        if (ppp == 1){
-            System.out.println("OOOOOOOKKKKKKKKK");
+        if (sysUsersDao.updateByUserIdSelective(userSysUsersDao) == 1){
+            System.out.println("OOOOOOOKKKKKKKKK777777777777777777");
         }
 
 
