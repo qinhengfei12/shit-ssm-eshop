@@ -37,18 +37,18 @@ public class userInfoController {
         return "redirect:/show/user/home";
     }
     @PostMapping ("/api/user/change")
-    public String userChange(@RequestParam("rename") String rename,
-                             @RequestParam("rephone") String rephone,
-                             @RequestParam("readdr") String readdr) {
+    public String userChange(@RequestParam("changeName") String changeName,
+                             @RequestParam("changePhone") String changePhone,
+                             @RequestParam("changeAddr") String changeAddr) {
         SysUsers userSysUsersDao = sysUsersDao.selectByUserId(userInfoUtil.getCurrentUserID());
-        if (!rename.isEmpty()){
-            userSysUsersDao.setUsername(rename);
+        if (!changeName.isEmpty()){
+            userSysUsersDao.setUsername(changeName);
         }
-        if (!rephone.isEmpty()){
-            userSysUsersDao.setPhone(Long.parseLong(rephone));
+        if (!changePhone.isEmpty()){
+            userSysUsersDao.setPhone(Long.parseLong(changePhone));
         }
-        if (!readdr.isEmpty()){
-            userSysUsersDao.setAddr(readdr);
+        if (!changeAddr.isEmpty()){
+            userSysUsersDao.setAddr(changeAddr);
         }
             System.out.println(userSysUsersDao.toString());
 
