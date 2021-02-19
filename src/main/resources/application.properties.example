@@ -30,5 +30,5 @@ spring.session.store-type=redis
 spring.session.timeout=900
 
 ##File size limit
-spring.servlet.multipart.max-file-size=128KB
-spring.servlet.multipart.max-request-size=128KB
+spring.servlet.multipart.max-file-size=512KB
+spring.servlet.multipart.max-request-size=512KB

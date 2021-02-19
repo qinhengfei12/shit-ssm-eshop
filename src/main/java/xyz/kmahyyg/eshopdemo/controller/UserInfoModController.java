@@ -14,7 +14,7 @@ import xyz.kmahyyg.eshopdemo.utils.UserInfoUtil;
 
 
 @Controller
-public class userInfoController {
+public class UserInfoModController {
 
     @Autowired
     private UserInfoUtil userInfoUtil;
@@ -42,23 +42,20 @@ public class userInfoController {
                              @RequestParam("changePhone") String changePhone,
                              @RequestParam("changeAddr") String changeAddr,
                              RedirectAttributes redirectAttributes) {
-        SysUsers userSysUsersDao = sysUsersDao.selectByUserId(userInfoUtil.getCurrentUserID());
+        SysUsers user2Update = sysUsersDao.selectByUserId(userInfoUtil.getCurrentUserID());
         if (!changeName.isEmpty()){
-            userSysUsersDao.setUsername(changeName);
+            user2Update.setUsername(changeName);
         }
         if (!changePhone.isEmpty()){
-            userSysUsersDao.setPhone(Long.parseLong(changePhone));
+            user2Update.setPhone(Long.parseLong(changePhone));
         }
         if (!changeAddr.isEmpty()){
-            userSysUsersDao.setAddr(changeAddr);
+            user2Update.setAddr(changeAddr);
         }
-            System.out.println(userSysUsersDao.toString());
 
-        if (sysUsersDao.updateByUserIdSelective(userSysUsersDao) == 1){
+        if (sysUsersDao.updateByUserIdSelective(user2Update) == 1){
             redirectAttributes.addFlashAttribute("change", "Info changed successfully !");
         }
-
-
 
         return "redirect:/show/user/home";
     }

@@ -12,16 +12,16 @@ import xyz.kmahyyg.eshopdemo.model.SysItems;
 import java.util.List;
 
 @Controller
-public class classifyControler {
+public class CategoryController {
     @Autowired
     private SysItemsDao sysItemsDao;
 
-    @GetMapping("/show/classify/{cid:.+}")
-    public String classify(@PathVariable String cid, Model model) {
+    @GetMapping("/show/cate/{cid:.+}")
+    public String showItemByCate(@PathVariable String cid, Model model) {
         int intCid = Integer.parseInt(cid);
         List<SysItems> list = sysItemsDao.selectByCateId(intCid);
         model.addAttribute("list",list);
-        return "goodsClass";
+        return "showItemByCate";
     }
 
 }

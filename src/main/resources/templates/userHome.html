@@ -1,7 +1,11 @@
-<!--suppress ALL -->
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Home</title>
+</head>
 <body>
-<h1>user Home</h1>
+<h1>User Home</h1>
 <a href="/">首页 </a><br>
 <div>
     <form method="POST" enctype="multipart/form-data" action="/api/user/imgUpload">
@@ -11,15 +15,14 @@
         </table>
     </form>
 </div>
-
 <div th:if="${message2}">
-    <h5 th:text="${message2}"/>
+    <h5 th:text="${message2}"></h5>
 </div>
 <div th:if="${imgPath}">
     <img th:src="${imgPath}" style="width:100px; height: 100px;"/>
 </div>
-<a href="/show/user/info">userInfo </a>
-<table border="6">
+<a href="/show/user/info">Click to Show User Info</a>
+<table border="1">
     <caption>User info</caption>
     <tr>
         <td>username</td>
@@ -29,38 +32,34 @@
     <tr>
         <td>
             <div th:if="${username}">
-                <h5 th:text="${username}"/>
+                <h5 th:text="${username}"></h5>
             </div>
         </td>
         <td>
             <div th:if="${phone}">
-            <h5 th:text="${phone}"/>
-        </div>
+                <h5 th:text="${phone}"></h5>
+            </div>
         </td>
         <td>
             <div th:if="${addr}">
-            <h5 th:text="${addr}"/>
-        </div>
+                <h5 th:text="${addr}"></h5>
+            </div>
         </td>
     </tr>
 </table>
 <!--用户修改-->
 <h5>用户信息修改，修改用户名，手机号，地址</h5>
 <form action="/api/user/change" method="post">
-    rename:<br>
-    <input type="text" name="changeName">
-    <br>
-    rephone:<br>
-    <input type="text" name="changePhone">
-    <br>
-    readdr:<br>
-    <input type="text" name="changeAddr">
-    <br>
-
+    <label for="changeName">Change User Name:</label>
+    <input type="text" name="changeName" id="changeName">
+    <label for="changePhone">Change Phone:</label>
+    <input type="text" name="changePhone" id="changePhone">
+    <label for="changeAddr">Change Address: </label>
+    <input type="text" name="changeAddr" id="changeAddr">
     <input type="submit" value="Submit">
 </form>
 <div th:if="${change}">
-    <h5 th:text="${change}"/>
-
+    <h5 th:text="${change}"></h5>
+</div>
 </body>
 </html>

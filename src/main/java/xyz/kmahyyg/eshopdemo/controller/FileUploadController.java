@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import xyz.kmahyyg.eshopdemo.dao.StorageService;
-import xyz.kmahyyg.eshopdemo.security.imgSecurity;
+import xyz.kmahyyg.eshopdemo.storage.StorageService;
+import xyz.kmahyyg.eshopdemo.security.UploadImgSecurity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,9 +33,9 @@ public class FileUploadController {
 		return "userHome";
 	}
 
-	@RequestMapping(value = "/files/{filename:.+}",produces = MediaType.IMAGE_JPEG_VALUE)
+	@RequestMapping(value = "/show/files/{filename:.+}",produces = MediaType.IMAGE_JPEG_VALUE)
 	@ResponseBody
-	public ResponseEntity<byte[]> serveFile(@PathVariable String filename) throws IOException {
+	public ResponseEntity<byte[]> serveUploadedFile(@PathVariable String filename) throws IOException {
 		Resource file = storageService.loadAsResource(filename);
 		InputStream in = file.getInputStream();
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -46,16 +46,16 @@ public class FileUploadController {
 		}
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_PNG);
-		return new ResponseEntity<byte[]>(byteArrayOutputStream.toByteArray(), headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(byteArrayOutputStream.toByteArray(), headers, HttpStatus.CREATED);
 }
 
 	@PostMapping("/api/user/imgUpload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) throws IOException {
-		boolean checkResult = imgSecurity.imgCheck(file);
-		if (String.valueOf(checkResult) == "true"){
+		boolean checkResult = UploadImgSecurity.imgCheck(file);
+		if (String.valueOf(checkResult).equals("true")){
 			String fileName = storageService.store(file);
-			String fileURL = "/files/"+fileName;
+			String fileURL = "/show/files/"+fileName;
 			redirectAttributes.addFlashAttribute("message2", "You successfully uploaded !");
 			redirectAttributes.addFlashAttribute("imgPath", fileURL);
 		}else {

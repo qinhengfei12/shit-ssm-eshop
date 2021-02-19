@@ -1,4 +1,4 @@
-package xyz.kmahyyg.eshopdemo.dao;
+package xyz.kmahyyg.eshopdemo.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
